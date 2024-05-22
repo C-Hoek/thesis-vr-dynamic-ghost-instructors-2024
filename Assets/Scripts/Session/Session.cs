@@ -1,6 +1,4 @@
-using Task;
-
-namespace Trial
+namespace Session
 {
     public class Session
     {
@@ -11,6 +9,7 @@ namespace Trial
         private float timeLimit = 30;
 
         private ITask task;
+
         
         /// <summary>
         /// T

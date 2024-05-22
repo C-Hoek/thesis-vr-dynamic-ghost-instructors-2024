@@ -1,11 +1,14 @@
-namespace Trial
+namespace Session
 {
-    public record Trial(
-        int sessionID,
-        int trialNumber
-    )
+    public class Trial
     {
-        private int sessionID { get; set; }
-        private int trialNumber { get; set; }
+        private TaskPerformance taskPerformance;
+
+        private ITask task1;
+        private ITask task2;
+
+        private float timeLimit;
+
+        private bool isTraining;
     }
 }
