@@ -14,6 +14,11 @@ namespace Task
         public void VisualiseTaskGhost();
 
         /// <summary>
+        /// Implementations of this method should return the correct order in which vertices should be pressed.
+        /// </summary>
+        public void GetCorrectVertexOrder();
+
+        /// <summary>
         /// Implementations of this method should return a boolean that represents if the pressed vertex is the correct next vertex.
         /// </summary>
         /// <param name="v"> The pressed vertex. </param>

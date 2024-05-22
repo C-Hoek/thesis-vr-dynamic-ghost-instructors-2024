@@ -1,7 +1,11 @@
+using System.Collections.Generic;
+
 namespace Task
 {
     public class CygnusTask : ITask
     {
+        private List<GameObject> correctVertexOrder;
+
         // TODO: Implement the task.
 
         /// <summary>
@@ -19,6 +23,14 @@ namespace Task
         public void VisualiseTaskGhost()
         {
 
+        }
+
+        /// <summary>
+        /// This method returns the correct order in which vertices should be pressed.
+        /// </summary>
+        public void GetCorrectVertexOrder()
+        {
+            return correctVertexOrder;
         }
 
         /// <summary>
