@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using UnityEngine;
+
 namespace Task
 {
     public interface ITask
@@ -16,7 +19,7 @@ namespace Task
         /// <summary>
         /// Implementations of this method should return the correct order in which vertices should be pressed.
         /// </summary>
-        public void GetCorrectVertexOrder();
+        public List<GameObject> GetCorrectVertexOrder();
 
         /// <summary>
         /// Implementations of this method should return a boolean that represents if the pressed vertex is the correct next vertex.

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace Task
 {
@@ -28,7 +29,7 @@ namespace Task
         /// <summary>
         /// This method returns the correct order in which vertices should be pressed.
         /// </summary>
-        public void GetCorrectVertexOrder()
+        public List<GameObject> GetCorrectVertexOrder()
         {
             return correctVertexOrder;
         }
