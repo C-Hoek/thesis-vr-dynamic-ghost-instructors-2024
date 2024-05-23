@@ -1,3 +1,6 @@
+using Performance;
+using Task;
+
 namespace Session
 {
     public class Trial
