@@ -1,6 +1,6 @@
 namespace TransparencySettings
 {
-    class DynamicTransparencySetting
+    public class DynamicTransparencySetting
     {
         /// <summary>
         /// This method can be called to obtain the target transparency value for the Ghost avatar.
@@ -23,6 +23,7 @@ namespace TransparencySettings
         public float ComputeTransparency(float calculatedError)
         {
             //TODO: Add the method body.
+            return 0.5f;
         }
     }
 }
