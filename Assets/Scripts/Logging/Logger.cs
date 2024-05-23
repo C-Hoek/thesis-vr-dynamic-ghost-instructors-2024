@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace Logging
 {
+    /// <summary>
+    /// This class will log to: C:\Users\{User}\AppData\LocalLow\DefaultCompany\VR Ghost\Logs
+    /// </summary>
     public class Logger : MonoBehaviour
     {
         private StreamWriter _file;
@@ -36,6 +39,5 @@ namespace Logging
         {
             _file.Close();
         }
-    
     }    
 }
