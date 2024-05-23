@@ -11,10 +11,11 @@ namespace Performance
         /// </summary>
         /// <param name="student"> The transform including the position and rotation of the student. </param>
         /// <param name="ghost"> The transform including the position and rotation of the ghost. </param>
-        /// <returns></returns>
+        /// <returns> A number between TODO </returns>
         public float CalculateError(Transform student, Transform ghost)
         {
             //TODO: Replace the transform parameters with specific transforms.
+            return 1.0f;
         }
     }
 }

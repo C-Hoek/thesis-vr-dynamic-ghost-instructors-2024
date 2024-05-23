@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-
 namespace Performance
 {
 	public class TrialPerformance
@@ -24,10 +21,18 @@ namespace Performance
 
 			// Calculate the task performance and learning effect.
 			StatTriplet<float> taskPerformance = new StatTriplet<float> (0f, 0f, 0f);
-			StatTriplet<float> learningEffect = CalculateLearningEffect();
+			StatTriplet<float> learningEffect = CalculateLearningEffect(new Statistics(
+				new StatTriplet<float>(0f, 0f, 0f),
+				new StatTriplet<float>(0f, 0f, 0f),
+				new StatTriplet<float>(0f, 0f, 0f),
+				new StatTriplet<float>(0f, 0f, 0f),
+				new StatTriplet<bool>(false, false, false),
+				new StatTriplet<float>(0f, 0f, 0f),
+				new StatTriplet<float>(0f, 0f, 0f)));
 
 			// Combine all sub-statistics into a statistics object.
-			return Statistics(minDistanceToGhost, averageDistanceToGhost, maxDistanceToGhost, timeToCompletion, completed, taskPerformance, learningEffect)
+			return new Statistics(minDistanceToGhost, averageDistanceToGhost, maxDistanceToGhost, timeToCompletion,
+				completed, taskPerformance, learningEffect);
 		}
 
 		/// <summary>
@@ -37,7 +42,7 @@ namespace Performance
 		/// <returns> A triplet containing the learning effect for task 1, for task 2, and for both tasks combined, in that order. </returns>
 		private StatTriplet<float> CalculateLearningEffect(Statistics baselinePerformance)
 		{
-			return new StatTriplet<float>(0f, 0f, 0f)
+			return new StatTriplet<float>(0f, 0f, 0f);
 		}
 	}
 }
