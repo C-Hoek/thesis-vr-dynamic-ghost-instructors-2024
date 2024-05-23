@@ -1,6 +1,6 @@
 namespace TransparencySettings
 {
-    public class BaseTransparencySetting
+    public class BaseTransparencySetting : ITransparencySetting
     {
         /// <summary>
         /// This method can be called to obtain the target transparency value for the Ghost avatar.

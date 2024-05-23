@@ -48,5 +48,20 @@ namespace Task
         /// </summary>
         /// <returns> True if the task has been completed. False otherwise. </returns>
         public bool IsComplete();
+        
+        /// <summary>
+        /// This method returns an ITask class based on a string representation of the task type.
+        /// </summary>
+        /// <param name="taskType"> The string representation of a task type. This should be "cygnus" or "lyra". </param>
+        /// <returns> An ITask class with the </returns>
+        public static ITask SelectTask(string taskType)
+        {
+            return taskType switch
+            {
+                "cygnus" => new CygnusTask(),
+                "lyra" => new LyraTask(),
+                _ => new LyraTask()
+            };
+        }
     }
 }

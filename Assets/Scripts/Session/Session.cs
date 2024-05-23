@@ -2,25 +2,22 @@ using Task;
 
 namespace Session
 {
-    public class Session
+    public record Session (int numLearningTrials, int numTestTrials, float timeLimit, ITask task)
     {
-        private int numLearningTrials = 0;
-        private int numTestTrials = 0;
-        private int numRetentionTrials = 0;
-
-        private float timeLimit = 30;
-
-        private ITask task;
-
+        public int numLearningTrials { get; } = numLearningTrials;
+        public int numTestTrials { get; } = numTestTrials;
+        
+        public float timeLimit { get; } = timeLimit;
+        public ITask task { get; } = task;
         
         /// <summary>
-        /// T
+        /// This method tests if the current session has been completed.
         /// </summary>
-        /// <param name="currentTime"></param>
-        /// <returns></returns>
-        public bool IsComplete(float currentTime)
+        /// <param name="trialIndex"> The current trial that is to be loaded. </param>
+        /// <returns> True if all trials have been loaded. </returns>
+        public bool IsComplete(int trialIndex)
         {
-            return false;
+            return trialIndex == numLearningTrials + numTestTrials;
         }
     }
 }

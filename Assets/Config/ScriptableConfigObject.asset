@@ -12,4 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20f623bfad30d5f46a895697947ab258, type: 3}
   m_Name: ScriptableConfigObject
   m_EditorClassIdentifier: 
-  logString: 
+  logString: '"Test Config"'
+  numLearningTrials: 10
+  numTestTrials: 3
+  timeLimit: 30
+  taskName: 
+  transparencyType: 
+  baseGhostTransparency: 0
+  maxTransparency: 0
+  minTransparency: 0
