@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 20f623bfad30d5f46a895697947ab258, type: 3}
-  m_Name: ScriptableConfigObject
+  m_Name: DynamicConfig
   m_EditorClassIdentifier: 
-  logString: '"Test Config"'
+  logString: Dynamic Transparency Config
   numLearningTrials: 10
   numTestTrials: 3
   timeLimit: 30
-  taskName: 
-  transparencyType: 
-  baseGhostTransparency: 0
-  maxTransparency: 0
+  taskName: lyra
+  transparencyType: dynamic
+  baseGhostTransparency: 0.5
+  maxTransparency: 0.5
   minTransparency: 0

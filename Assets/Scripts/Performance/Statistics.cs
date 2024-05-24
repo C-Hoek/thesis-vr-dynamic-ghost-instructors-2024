@@ -1,18 +1,18 @@
 namespace Performance
 {
-    public record Statistics (StatTriplet<float> averageDistanceToGhost, StatTriplet<float> maxDistanceToGhost, StatTriplet<float> minDistanceToGhost,
-        StatTriplet<float> timeToCompletion, StatTriplet<bool> completed, StatTriplet<float> taskPerformance, StatTriplet<float> learningEffect)
-    {
-        public StatTriplet<float> averageDistanceToGhost { get; } = averageDistanceToGhost;
-        public StatTriplet<float> maxDistanceToGhost { get; } = maxDistanceToGhost;
-        public StatTriplet<float> minDistanceToGhost { get; } = minDistanceToGhost;
+	public record Statistics(StatTriplet<float> AverageDistanceToGhost, StatTriplet<float> MaxDistanceToGhost, StatTriplet<float> MinDistanceToGhost,
+		StatTriplet<float> TimeToCompletion, StatTriplet<bool> Completed, StatTriplet<float> TaskPerformance, StatTriplet<float> LearningEffect)
+	{
+		public StatTriplet<float> AverageDistanceToGhost { get; } = AverageDistanceToGhost;
+		public StatTriplet<float> MaxDistanceToGhost { get; } = MaxDistanceToGhost;
+		public StatTriplet<float> MinDistanceToGhost { get; } = MinDistanceToGhost;
 
-        // Obtain completion statistics.
-        public StatTriplet<float> timeToCompletion { get; } = timeToCompletion;
-        public StatTriplet<bool> completed { get; } = completed;
+		// Obtain completion statistics.
+		public StatTriplet<float> TimeToCompletion { get; } = TimeToCompletion;
+		public StatTriplet<bool> Completed { get; } = Completed;
 
-        // Calculate the task performance and learning effect.
-        public StatTriplet<float> taskPerformance { get; } = taskPerformance;
-        public StatTriplet<float> learningEffect { get; } = learningEffect;
-    }
+		// Calculate the task performance and learning effect.
+		public StatTriplet<float> TaskPerformance { get; } = TaskPerformance;
+		public StatTriplet<float> LearningEffect { get; } = LearningEffect;
+	}
 }

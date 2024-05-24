@@ -1,10 +1,10 @@
 namespace Performance
 {
-	public record StatTriplet<T>(T task1, T task2, T combined)
+	public record StatTriplet<T>(T Task1, T Task2, T Combined)
 		where T : struct
 	{
-		public T task1 { get; } = task1;
-		public T task2 { get; } = task2;
-		public T combined { get; } = combined;
+		public T Task1 { get; } = Task1;
+		public T Task2 { get; } = Task2;
+		public T Combined { get; } = Combined;
 	}
 }

@@ -11,17 +11,17 @@ namespace Performance
 		public Statistics CalculateTrialStatistics()
 		{
 			// Calculate distance values.
-			StatTriplet<float> averageDistanceToGhost = new StatTriplet<float> (0f, 0f, 0f);
-			StatTriplet<float> maxDistanceToGhost = new StatTriplet<float> (float.MaxValue, float.MaxValue, float.MaxValue);
-			StatTriplet<float> minDistanceToGhost = new StatTriplet<float> (float.MinValue, float.MinValue, float.MinValue);
+			var averageDistanceToGhost = new StatTriplet<float>(0f, 0f, 0f);
+			var maxDistanceToGhost = new StatTriplet<float>(float.MaxValue, float.MaxValue, float.MaxValue);
+			var minDistanceToGhost = new StatTriplet<float>(float.MinValue, float.MinValue, float.MinValue);
 
 			// Obtain completion statistics.
-			StatTriplet<float> timeToCompletion = new StatTriplet<float> (0f, 0f, 0f);
-			StatTriplet<bool> completed = new StatTriplet<bool> (false, false, false);
+			var timeToCompletion = new StatTriplet<float>(0f, 0f, 0f);
+			var completed = new StatTriplet<bool>(false, false, false);
 
 			// Calculate the task performance and learning effect.
-			StatTriplet<float> taskPerformance = new StatTriplet<float> (0f, 0f, 0f);
-			StatTriplet<float> learningEffect = CalculateLearningEffect(new Statistics(
+			var taskPerformance = new StatTriplet<float>(0f, 0f, 0f);
+			var learningEffect = CalculateLearningEffect(new Statistics(
 				new StatTriplet<float>(0f, 0f, 0f),
 				new StatTriplet<float>(0f, 0f, 0f),
 				new StatTriplet<float>(0f, 0f, 0f),

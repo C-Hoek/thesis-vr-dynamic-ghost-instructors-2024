@@ -6,47 +6,73 @@ using UnityEngine.SceneManagement;
 
 namespace Session
 {
-    public class SessionController : MonoBehaviour
-    {
-        [SerializeField] private ScriptableConfigObject config;
-        [SerializeField] private GameObject ghost;
-        
-        private Session session;
-        private ITransparencySetting transparencySetting;
+	public class SessionController : MonoBehaviour
+	{
+		private static SessionController s_instance;
+		
+		private ScriptableConfigObject _config;
+		public ScriptableConfigObject Config
+		{
+			set
+			{
+				_config = value;
+				Setup();
+			}
+		}
 
-        private int trialIndex = 0;
+		private GameObject _ghost;
 
-        /// <summary>
-        /// This method sets up the full session based on the config object linked through the Unity Editor.
-        /// </summary>
-        public void Start()
-        {
-            // Set up the session through the config object.
-            session = new Session(
-                config.numLearningTrials, 
-                config.numTestTrials, 
-                config.timeLimit, 
-                ITask.SelectTask(config.taskName));
-            
-            // Set up the transparency settings through the config object.
-            transparencySetting = ITransparencySetting.SelectTransparencySetting(config.transparencyType);
-        }
-        
-        /// <summary>
-        /// 
-        /// </summary>
-        public void LoadTrial()
-        {
-            if (session.IsComplete(trialIndex))
-            {
-                SceneManager.LoadScene("Menu");
-            }
+		private Session _session;
+		private ITransparencySetting _transparencySetting;
 
-        }
+		private int _trialIndex = 0;
 
-        public void IsComplete()
-        {
+		/// <summary>
+		/// This method makes sure that the session controller can be passed between scenes to allow for information passing.
+		/// It also ensures only one SessionController is active at a time.
+		/// </summary>
+		public void Awake()
+		{
+			if (s_instance is not null)
+			{
+				Destroy(s_instance);
+			}
 
-        }
-    }
+			s_instance = this;
+			DontDestroyOnLoad(this);
+		}
+
+		/// <summary>
+		/// This method sets up the full session based on the config object linked through the Unity Editor.
+		/// </summary>
+		private void Setup()
+		{
+			// Set up the session through the config object.
+			_session = new Session(
+				_config.numLearningTrials,
+				_config.numTestTrials,
+				_config.timeLimit,
+				ITask.SelectTask(_config.taskName));
+
+			// Set up the transparency settings through the config object.
+			_transparencySetting = ITransparencySetting.SelectTransparencySetting(_config.transparencyType);
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		public void LoadTrial()
+		{
+			if (_session.IsComplete(_trialIndex))
+			{
+				SceneManager.LoadScene("Menu");
+			}
+
+		}
+
+		public void IsComplete()
+		{
+
+		}
+	}
 }
