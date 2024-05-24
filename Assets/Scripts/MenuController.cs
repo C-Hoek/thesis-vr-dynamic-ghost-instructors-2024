@@ -28,10 +28,10 @@ public class MenuController : MonoBehaviour
 			"dynamic" => dynamicConfig,
 			_ => null
 		};
-		
+
 		if (config is null) return;
 		sessionController.Config = config;
-		
+
 		// Load the test environment.
 		SceneManager.LoadScene("TestEnvironment");
 	}

@@ -1,3 +1,5 @@
+using Session;
+
 namespace TransparencySettings
 {
 	public class BaseTransparencySetting : ITransparencySetting
@@ -6,11 +8,11 @@ namespace TransparencySettings
 		/// This method can be called to obtain the target transparency value for the Ghost avatar.
 		/// This method always returns the same value. The value will be equal to the `BaseGhostTransparency` value of the provided settings file.
 		/// </summary>
-		/// <returns> A value between 0 and 1. Where 1 denotes completely visible, and 0 denotes completely invisible. </returns>
-		public float TargetGhostTransparency()
+		/// <param name="calculatedError"> The error value when comparing the student with the Ghost avatar. </param>
+		/// <returns> A value between 0 and 1. Where 1 denotes completely visible, and 0 denotes completely invisible. This is the same value as the base transparency in the config objects. </returns>
+		public float TargetGhostTransparency(float calculatedError)
 		{
-			//TODO: Obtain the BaseTransparency from the settings.
-			return 0.5f;
+			return SessionController.Session.TransparencyInfo.BaseTransparency;
 		}
 	}
 }

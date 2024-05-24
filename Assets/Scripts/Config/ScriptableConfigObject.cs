@@ -1,4 +1,3 @@
-using Task;
 using UnityEngine;
 
 namespace Config
@@ -15,9 +14,10 @@ namespace Config
 		public string taskName;
 
 		public string transparencyType;
-		public float baseGhostTransparency;
+		public float baseTransparency;
 		public float maxTransparency;
 		public float minTransparency;
+		public float errorThreshold;
 
 		public string LogConfig()
 		{

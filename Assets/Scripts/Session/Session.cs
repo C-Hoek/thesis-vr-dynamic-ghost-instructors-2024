@@ -1,14 +1,17 @@
 using Task;
+using TransparencySettings;
 
 namespace Session
 {
-	public record Session(int NumLearningTrials, int NumTestTrials, float TimeLimit, ITask Task)
+	public record Session(int NumLearningTrials, int NumTestTrials, float TimeLimit, ITask Task, TransparencyInfo TransparencyInfo)
 	{
 		public int NumLearningTrials { get; } = NumLearningTrials;
 		public int NumTestTrials { get; } = NumTestTrials;
 
 		public float TimeLimit { get; } = TimeLimit;
 		public ITask Task { get; } = Task;
+
+		public TransparencyInfo TransparencyInfo { get; } = TransparencyInfo;
 
 		/// <summary>
 		/// This method tests if the current session has been completed.

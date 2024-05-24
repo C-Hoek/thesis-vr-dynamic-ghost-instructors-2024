@@ -8,8 +8,10 @@ namespace Session
 {
 	public class SessionController : MonoBehaviour
 	{
+		// The static instance used to ensure there is only one active SessionController at any point in time.
 		private static SessionController s_instance;
-		
+
+		// The non-extracted session configuration.
 		private ScriptableConfigObject _config;
 		public ScriptableConfigObject Config
 		{
@@ -20,11 +22,18 @@ namespace Session
 			}
 		}
 
-		private GameObject _ghost;
-
-		private Session _session;
+		// The session details.
+		private static Session s_session;
+		public static Session Session
+		{
+			get => s_session;
+		}
 		private ITransparencySetting _transparencySetting;
 
+		// Session-related Game Objects.
+		private GameObject _ghost;
+
+		// Variables used to keep track of the session state.
 		private int _trialIndex = 0;
 
 		/// <summary>
@@ -48,11 +57,12 @@ namespace Session
 		private void Setup()
 		{
 			// Set up the session through the config object.
-			_session = new Session(
+			s_session = new Session(
 				_config.numLearningTrials,
 				_config.numTestTrials,
 				_config.timeLimit,
-				ITask.SelectTask(_config.taskName));
+				ITask.SelectTask(_config.taskName),
+				new TransparencyInfo(_config.minTransparency, _config.baseTransparency, _config.maxTransparency, _config.errorThreshold));
 
 			// Set up the transparency settings through the config object.
 			_transparencySetting = ITransparencySetting.SelectTransparencySetting(_config.transparencyType);
@@ -63,7 +73,7 @@ namespace Session
 		/// </summary>
 		public void LoadTrial()
 		{
-			if (_session.IsComplete(_trialIndex))
+			if (s_session.IsComplete(_trialIndex))
 			{
 				SceneManager.LoadScene("Menu");
 			}

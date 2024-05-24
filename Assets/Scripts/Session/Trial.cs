@@ -8,7 +8,7 @@ namespace Session
 		public TaskPerformance TaskPerformance { get; } = TaskPerformance;
 		public ITask Task1 { get; } = Task1;
 		public ITask Task2 { get; } = Task2;
-		
+
 		public float TimeLimit { get; } = TimeLimit;
 		public bool IsTraining { get; } = IsTraining;
 
