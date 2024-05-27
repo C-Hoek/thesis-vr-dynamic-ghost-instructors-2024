@@ -1,4 +1,5 @@
 using Config;
+using GameEntities;
 using Task;
 using TransparencySettings;
 using UnityEngine;
@@ -31,7 +32,17 @@ namespace Session
 		private ITransparencySetting _transparencySetting;
 
 		// Session-related Game Objects.
-		private GameObject _ghost;
+		private Logger _logger;
+		public Logger Logger
+		{
+			get
+			{
+				_logger ??= FindObjectOfType<Logger>();
+				return _logger;
+			}
+		}
+		private Ghost _ghost;
+		private Student _student;
 
 		// Variables used to keep track of the session state.
 		private int _trialIndex = 0;
@@ -54,7 +65,7 @@ namespace Session
 		/// <summary>
 		/// This method sets up the full session based on the config object linked through the Unity Editor.
 		/// </summary>
-		private void Setup()
+		public void Setup()
 		{
 			// Set up the session through the config object.
 			s_session = new Session(

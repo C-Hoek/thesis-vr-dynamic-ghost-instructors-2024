@@ -31,6 +31,7 @@ public class MenuController : MonoBehaviour
 
 		if (config is null) return;
 		sessionController.Config = config;
+		sessionController.Setup();
 
 		// Load the test environment.
 		SceneManager.LoadScene("TestEnvironment");

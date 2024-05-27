@@ -11,6 +11,8 @@ namespace Logging
 	{
 		private StreamWriter _file;
 
+		public const string Delimiter = ",";
+
 		/// <summary>
 		/// This function is used to set the Logger up with the correct file.
 		/// This should be done at the start of a set of trials.
