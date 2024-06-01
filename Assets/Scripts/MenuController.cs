@@ -3,7 +3,6 @@ using Config;
 using Session;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class MenuController : MonoBehaviour
 {
@@ -34,6 +33,6 @@ public class MenuController : MonoBehaviour
 		sessionController.Setup();
 
 		// Load the test environment.
-		SceneManager.LoadScene("TestEnvironment");
+		sessionController.LoadTrial();
 	}
 }

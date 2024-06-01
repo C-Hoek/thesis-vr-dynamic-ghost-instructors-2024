@@ -18,7 +18,7 @@ MonoBehaviour:
   timeLimit: 30
   taskName: lyra
   transparencyType: static
-  baseTransparency: 0.5
-  maxTransparency: 0.5
-  minTransparency: 0
+  baseTransparency: 0.2
+  maxTransparency: 0.2
+  minTransparency: 0.2
   errorThreshold: 0.15

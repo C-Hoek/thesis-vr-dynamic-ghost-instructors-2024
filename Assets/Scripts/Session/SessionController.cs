@@ -4,6 +4,7 @@ using Task;
 using TransparencySettings;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Logger = Logging.Logger;
 
 namespace Session
 {
@@ -32,13 +33,13 @@ namespace Session
 		private ITransparencySetting _transparencySetting;
 
 		// Session-related Game Objects.
-		private Logger _logger;
-		public Logger Logger
+		private static Logger s_logger;
+		public static Logger Logger
 		{
 			get
 			{
-				_logger ??= FindObjectOfType<Logger>();
-				return _logger;
+				s_logger ??= FindObjectOfType<Logger>();
+				return s_logger;
 			}
 		}
 		private Ghost _ghost;
@@ -46,6 +47,8 @@ namespace Session
 
 		// Variables used to keep track of the session state.
 		private int _trialIndex = 0;
+		private bool _started;
+		private bool _infoLogged;
 
 		/// <summary>
 		/// This method makes sure that the session controller can be passed between scenes to allow for information passing.
@@ -57,9 +60,29 @@ namespace Session
 			{
 				Destroy(s_instance);
 			}
-
+			
 			s_instance = this;
 			DontDestroyOnLoad(this);
+		}
+
+		/// <summary>
+		/// This method handles all session controller activities throughout the game.
+		/// </summary>
+		public void Update()
+		{
+			if (!_started) return;
+			if (!_infoLogged)
+			{
+				Logger?.LogTrialInfo(_trialIndex, _config);
+				_infoLogged = Logger is not null;
+			}
+			
+			// TODO: Remove this code once it is no longer necessary :')
+
+			_ghost ??= FindObjectOfType<Ghost>();
+			_student ??= FindObjectOfType<Student>();
+			
+			_ghost.SetTransparency(_config.baseTransparency);
 		}
 
 		/// <summary>
@@ -80,20 +103,22 @@ namespace Session
 		}
 
 		/// <summary>
-		/// 
+		/// This method loads the next trial if there is any, and returns to the main menu otherwise
 		/// </summary>
 		public void LoadTrial()
 		{
+			_started = false;
+			
+			// Load the menu if the session is complete.
 			if (s_session.IsComplete(_trialIndex))
 			{
 				SceneManager.LoadScene("Menu");
 			}
-
-		}
-
-		public void IsComplete()
-		{
-
+			
+			// Load the next trial of the session.
+			SceneManager.LoadScene("TestEnvironment");
+			_trialIndex += 1;
+			_started = true;
 		}
 	}
 }
