@@ -23,5 +23,4 @@ public class TimeController : MonoBehaviour
 	{
 		s_currentTime += Time.deltaTime * 1000f;
 	}
-
 }
