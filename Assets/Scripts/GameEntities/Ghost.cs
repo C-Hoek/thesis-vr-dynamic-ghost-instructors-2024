@@ -7,6 +7,7 @@ namespace GameEntities
 	public class Ghost : MonoBehaviour
 	{
 		[SerializeField] private GameObject ghostAvatar;
+		[SerializeField] private Material ghostMaterial;
 
 		/// <summary>
 		/// This method is used to log the position and transparency of the ghost avatar.
@@ -31,10 +32,9 @@ namespace GameEntities
 			if (ghostAvatar is null || alpha < 0.0f && alpha > 1.0f) return;
 			
 			// Adjust the transparency.
-			var renderer1 = ghostAvatar.GetComponent<Renderer>();
-			var colour = renderer1.material.color;
+			var colour = ghostMaterial.color;
 			colour.a = alpha;
-			renderer1.material.color = colour;
+			ghostMaterial.color = colour;
 		}
 
 		/// <summary>
@@ -52,7 +52,7 @@ namespace GameEntities
 		/// </summary>
 		private void LogTransparency()
 		{
-			var logString = "Ghost Transparency" + Logger.Delimiter + ghostAvatar.GetComponent<Renderer>().material.color.a;
+			var logString = "Ghost Transparency" + Logger.Delimiter + ghostMaterial.color.a;
 			SessionController.Logger.Log(logString);
 		}
 	}
