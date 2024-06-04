@@ -51,6 +51,14 @@ namespace Session
 		private bool _infoLogged;
 
 		/// <summary>
+		/// This method subscribes to the OnStartNextTrial event.
+		/// </summary>
+		public void OnEnable()
+		{
+			SessionEventHandler.Instance.OnStartNextTrial += StartTrial;
+		}
+
+		/// <summary>
 		/// This method makes sure that the session controller can be passed between scenes to allow for information passing.
 		/// It also ensures only one SessionController is active at a time.
 		/// </summary>
@@ -87,6 +95,14 @@ namespace Session
 		}
 
 		/// <summary>
+		/// This method unsubscribes from the OnStartNextTrial event.
+		/// </summary>
+		public void OnDisable()
+		{
+			SessionEventHandler.Instance.OnStartNextTrial -= StartTrial;
+		}
+
+		/// <summary>
 		/// This method sets up the full session based on the config object linked through the Unity Editor.
 		/// </summary>
 		public void Setup()
@@ -101,6 +117,16 @@ namespace Session
 
 			// Set up the transparency settings through the config object.
 			_transparencySetting = ITransparencySetting.SelectTransparencySetting(_config.transparencyType);
+		}
+
+		/// <summary>
+		/// This method starts the trial and logs that the trial has been started.
+		/// <summary>
+		public void StartTrial()
+		{
+
+			Logger.Log("Trial Started");
+			_started = true;
 		}
 
 		/// <summary>
