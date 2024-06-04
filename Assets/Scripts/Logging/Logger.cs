@@ -50,8 +50,8 @@ namespace Logging
 				$"Time Limit{Delimiter} {config.timeLimit}\n" +
 				$"Task{Delimiter} {config.taskName}\n" +
 				$"Base Transparency{Delimiter} {config.baseTransparency}\n" +
-				$"Max Transparency{Delimiter} {config.maxTransparency}\n" +
 				$"Min Transparency{Delimiter} {config.minTransparency}\n" +
+				$"Max Transparency{Delimiter} {config.maxTransparency}\n" +
 				$"Error Threshold{Delimiter} {config.errorThreshold}\n" +
 				"===============================================================================";
 			Log(logString);

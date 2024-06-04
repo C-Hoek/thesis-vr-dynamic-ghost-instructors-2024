@@ -6,8 +6,9 @@ namespace TransparencySettings
 		/// Implementations of this method can be called to obtain the target transparency value for the Ghost avatar.
 		/// </summary>
 		/// <param name="calculatedError"> The error value when comparing the student with the Ghost avatar. </param>
+		/// <param name="trialIndex"> The current trial's index. </param>
 		/// <returns> A value between 0 and 1. Where 1 denotes completely visible, and 0 denotes completely invisible. </returns>
-		public float TargetGhostTransparency(float calculatedError);
+		public float TargetGhostTransparency(float calculatedError, int trialIndex);
 
 		/// <summary>
 		/// This method returns an ITransparencySetting class based on a string representation of the transparency type.

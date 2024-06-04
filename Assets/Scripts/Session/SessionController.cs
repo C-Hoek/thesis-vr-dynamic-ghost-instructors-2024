@@ -46,7 +46,7 @@ namespace Session
 		private Student _student;
 
 		// Variables used to keep track of the session state.
-		private int _trialIndex = 0;
+		[SerializeField] private int _trialIndex = 0;
 		private bool _started;
 		private bool _infoLogged;
 
@@ -76,12 +76,13 @@ namespace Session
 				Logger?.LogTrialInfo(_trialIndex, _config);
 				_infoLogged = Logger is not null;
 			}
-			
-			// TODO: Remove this code once it is no longer necessary :')
 
 			_ghost ??= FindObjectOfType<Ghost>();
 			_student ??= FindObjectOfType<Student>();
 			
+			// TODO: Obtain the error between the ghost and player positions.
+			// TODO: Obtain the target transparency.
+			// TODO: Replace the _config.baseTransparency below by the obtained target transparency.
 			_ghost?.SetTransparency(_config.baseTransparency);
 		}
 

@@ -10,15 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 20f623bfad30d5f46a895697947ab258, type: 3}
-  m_Name: StaticConfig
+  m_Name: BaseTransparencyConfig
   m_EditorClassIdentifier: 
-  logString: Static Transparency Config
-  numLearningTrials: 10
-  numTestTrials: 3
-  timeLimit: 30
-  taskName: lyra
-  transparencyType: static
-  baseTransparency: 0.2
-  maxTransparency: 0.2
-  minTransparency: 0.2
-  errorThreshold: 0.15
+  logString: 
+  numLearningTrials: 0
+  numTestTrials: 0
+  timeLimit: 0
+  taskName: 
+  transparencyType: 
+  baseTransparency: 0
+  errorThreshold: 0

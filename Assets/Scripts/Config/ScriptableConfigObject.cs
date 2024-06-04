@@ -1,4 +1,6 @@
 using UnityEngine;
+using System;
+using System.Collections.Generic;
 
 namespace Config
 {
@@ -14,9 +16,9 @@ namespace Config
 		public string taskName;
 
 		public string transparencyType;
+		public List<float> minTransparency;
 		public float baseTransparency;
-		public float maxTransparency;
-		public float minTransparency;
+		public List<float> maxTransparency;
 		public float errorThreshold;
 
 		public string LogConfig()
