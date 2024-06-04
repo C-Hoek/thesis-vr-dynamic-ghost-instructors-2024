@@ -82,7 +82,7 @@ namespace Session
 			_ghost ??= FindObjectOfType<Ghost>();
 			_student ??= FindObjectOfType<Student>();
 			
-			_ghost.SetTransparency(_config.baseTransparency);
+			_ghost?.SetTransparency(_config.baseTransparency);
 		}
 
 		/// <summary>
