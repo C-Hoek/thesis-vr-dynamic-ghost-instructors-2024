@@ -1,4 +1,4 @@
-using Session;
+using Sessions;
 using UnityEngine;
 using Logger = Logging.Logger;
 
@@ -7,6 +7,12 @@ namespace GameEntities
 	public class Student : MonoBehaviour
 	{
 		[SerializeField] private GameObject studentAvatar;
+
+		private float? _baselinePerformance;
+		public float? BaselinePerformance {
+			get => _baselinePerformance;
+			set => _baselinePerformance ??= value;
+		}
 		
 		/// <summary>
 		/// This method is used to log the position of the student avatar.
@@ -17,6 +23,14 @@ namespace GameEntities
 
 			// Log the position and transparency of the ghost avatar.
 			LogPosition();
+		}
+
+		/// <summary>
+		/// This method returns the transform of the student avatar.
+		/// </summary>
+		/// <returns> The transform of the student avatar. </returns>
+		public Transform GetTransform() {
+			return studentAvatar.transform;
 		}
 
 		/// <summary>

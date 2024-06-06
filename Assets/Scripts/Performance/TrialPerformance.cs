@@ -1,37 +1,57 @@
+using System.Collections.Generic;
+using System.Linq;
+using System;
+using Logger = Logging.Logger;
+
 namespace Performance
 {
 	public class TrialPerformance
 	{
+		// This list stores (errorValue, time).
+		private List<Tuple<float, float>> _taskErrors;
+		private Statistics _trialStatistics;
+		private float? _completionTime;
+		
+		/// <summary>
+		/// This method adds a single time-point error to the list of task errors.
+		/// </summary>
+		/// <param name="error"> The single time-point error to add to the list of task errors. </param>
+		/// <param name="time"> The time at which the error was calculated. </param>
+		public void AddTaskError(float error, float time)
+		{
+			_taskErrors ??= new List<Tuple<float, float>>();
+			_taskErrors.Add(new Tuple<float, float>(error, time));
+		}
+
 		/// <summary>
 		/// This method calculates and compiles all recorded statistics throughout the trial.
 		/// All calculated sub-statistics are ordered as: task1, task2, combined.
 		/// </summary>
-		/// <returns> It returns a statistics object containing the minimum, average, and maximum distance 
-		/// between the student and the Ghost, as well as completion statistics and the observed learning effect.</returns>
-		public Statistics CalculateTrialStatistics()
+		/// <param name="baselinePerformance"> The baseline performance of the student. </param>
+		/// <param name="completionTime"> The time it took for the student to complete the trial. </param>
+		/// <param name="timeExpired"> True if the trial was not completed within the time limit. False otherwise. </param>
+		public void CalculateTrialStatistics(float? baselinePerformance, float completionTime, bool timeExpired)
 		{
+			var errors = _taskErrors.Where(x => x.Item2 < completionTime).Select(x => x.Item1).ToList();
+
 			// Calculate distance values.
-			var averageDistanceToGhost = new StatTriplet<float>(0f, 0f, 0f);
-			var maxDistanceToGhost = new StatTriplet<float>(float.MaxValue, float.MaxValue, float.MaxValue);
-			var minDistanceToGhost = new StatTriplet<float>(float.MinValue, float.MinValue, float.MinValue);
+			var averageDistanceToGhost = errors.Average();
+			var maxDistanceToGhost = errors.Max();
+			var minDistanceToGhost = errors.Min();
 
 			// Obtain completion statistics.
-			var timeToCompletion = new StatTriplet<float>(0f, 0f, 0f);
-			var completed = new StatTriplet<bool>(false, false, false);
+			var timeToCompletion = completionTime;
+
+			var completed = timeExpired;
 
 			// Calculate the task performance and learning effect.
-			var taskPerformance = new StatTriplet<float>(0f, 0f, 0f);
-			var learningEffect = CalculateLearningEffect(new Statistics(
-				new StatTriplet<float>(0f, 0f, 0f),
-				new StatTriplet<float>(0f, 0f, 0f),
-				new StatTriplet<float>(0f, 0f, 0f),
-				new StatTriplet<float>(0f, 0f, 0f),
-				new StatTriplet<bool>(false, false, false),
-				new StatTriplet<float>(0f, 0f, 0f),
-				new StatTriplet<float>(0f, 0f, 0f)));
+			var taskPerformance = CalculateTaskPerformance(errors);
+			var learningEffect = CalculateLearningEffect(baselinePerformance, taskPerformance);
+
+			_completionTime = completionTime;
 
 			// Combine all sub-statistics into a statistics object.
-			return new Statistics(minDistanceToGhost, averageDistanceToGhost, maxDistanceToGhost, timeToCompletion,
+			_trialStatistics = new Statistics(minDistanceToGhost, averageDistanceToGhost, maxDistanceToGhost, timeToCompletion,
 				completed, taskPerformance, learningEffect);
 		}
 
@@ -39,10 +59,36 @@ namespace Performance
 		/// This method calculates the learning effect observed between the baseline and this trial based on student performance.
 		/// </summary>
 		/// <param name="baselinePerformance"> The baseline performance of the student. </param>
-		/// <returns> A triplet containing the learning effect for task 1, for task 2, and for both tasks combined, in that order. </returns>
-		private StatTriplet<float> CalculateLearningEffect(Statistics baselinePerformance)
+		/// <param name="taskPerformance"> The performance of the student during the most recently completed trial. </param>
+		/// <returns> A float representing the learning effect; defined as the difference between the baseline performance and current performance of the student. </returns>
+		private float CalculateLearningEffect(float? baselinePerformance, float taskPerformance)
 		{
-			return new StatTriplet<float>(0f, 0f, 0f);
+			return baselinePerformance.HasValue ? taskPerformance - baselinePerformance.Value : 0f;
+		}
+
+		/// <summary>
+		/// This method calculates the performance of the student.
+		/// Based on a time step of 0.02, Fixed Update will be executed 50 times per second.
+		/// With a time limit of 30 seconds, there will be 1500 errors.
+		/// To scale a possible sum of 1*1500 to 1-100, we divide the sum by 15.
+		/// </summary>
+		/// <returns> A float between 0 and 100 determining how well the student performed. </returns>
+		private float CalculateTaskPerformance(List<float> errors)
+		{
+			var sum = errors.Sum();
+			return sum / 15;
+		}
+
+		/// <summary>
+		/// This method returns a string containing all performance information.
+		/// </summary>
+		/// <returns> The performance log string. </returns>
+		public string LogPerformance()
+		{
+			var errors = _taskErrors.Where(x => x.Item2 < _completionTime).ToList();
+			
+			var logString = $"Statistics{Logger.Delimiter}{_trialStatistics}{Logger.Delimiter}Obtained From{Logger.Delimiter}{errors}";
+			return logString;
 		}
 	}
 }

@@ -1,7 +1,7 @@
 using UnityEngine;
-using Logger = Logging.Logger;
+using Sessions;
 
-namespace Session
+namespace Sessions
 {
 	public class TimeController : MonoBehaviour
 	{
@@ -10,6 +10,7 @@ namespace Session
 		{
 			get => s_currentTime;
 		}
+		private float? _timeLimit;
 
 		/// <summary>
 		/// This method subscribes to the OnStartNextTrial event.
@@ -33,14 +34,17 @@ namespace Session
 		public void Update()
 		{
 			s_currentTime += Time.deltaTime * 1000f;
+
+			if (s_currentTime > _timeLimit) SessionEventHandler.Instance.CompleteTrial(timeExpired: true);
 		}
 
 		/// <summary>
-		/// 
+		/// This method starts the timer once the trial starts, and also sets the time limit.
 		/// </summary>
 		private void StartTimer()
 		{
 			s_currentTime = 0f;
+			_timeLimit = SessionController.Session.TimeLimit;
 		}
 
 		/// <summary>

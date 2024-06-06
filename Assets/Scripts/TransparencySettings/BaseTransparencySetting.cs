@@ -1,4 +1,4 @@
-using Session;
+using Sessions;
 
 namespace TransparencySettings
 {

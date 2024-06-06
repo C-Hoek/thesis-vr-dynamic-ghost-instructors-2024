@@ -1,11 +1,11 @@
 using Performance;
 using Task;
 
-namespace Session
+namespace Sessions
 {
-	public record Trial(TaskPerformance TaskPerformance, ITask Task1, ITask Task2, float TimeLimit, bool IsTraining)
+	public record Trial(TrialPerformance TrialPerformance, ITask Task1, ITask Task2, float TimeLimit, bool IsTraining)
 	{
-		public TaskPerformance TaskPerformance { get; } = TaskPerformance;
+		public TrialPerformance TrialPerformance { get; } = TrialPerformance;
 		public ITask Task1 { get; } = Task1;
 		public ITask Task2 { get; } = Task2;
 

@@ -1,10 +1,10 @@
 using UnityEngine;
 
-namespace Session
+namespace Sessions
 {
 	public class TrialInitiatorObject : MonoBehaviour
 	{
-		[SerializeField] private TrialInitiator _trialInitiator;
+		[SerializeField] private TrialInitiator trialInitiator;
 
 		/// <summary>
 		/// This method is triggered when a collider enters the trial initiator object.
@@ -24,7 +24,7 @@ namespace Session
 				collider = 2;
 			}
 
-			_trialInitiator.SetFlag(true, this, collider);
+			trialInitiator.SetFlag(true, this, collider);
 		}
 
 		/// <summary>
@@ -44,7 +44,7 @@ namespace Session
 				collider = 2;
 			}
 
-			_trialInitiator.SetFlag(false, this, collider);
+			trialInitiator.SetFlag(false, this, collider);
 		}
 
 	}

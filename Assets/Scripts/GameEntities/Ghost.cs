@@ -1,4 +1,4 @@
-using Session;
+using Sessions;
 using Logger = Logging.Logger;
 using UnityEngine;
 
@@ -35,6 +35,14 @@ namespace GameEntities
 			var colour = ghostMaterial.color;
 			colour.a = alpha;
 			ghostMaterial.color = colour;
+		}
+
+		/// <summary>
+		/// This method returns the transform of the ghost avatar.
+		/// </summary>
+		/// <returns> The transform of the ghost avatar. </returns>
+		public Transform GetTransform() {
+			return ghostAvatar.transform;
 		}
 
 		/// <summary>

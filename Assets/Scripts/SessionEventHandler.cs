@@ -1,6 +1,6 @@
 using System;
 
-namespace Session
+namespace Sessions
 {
 	public class SessionEventHandler
 	{
@@ -18,6 +18,19 @@ namespace Session
 		public void StartNextTrial()
 		{
 			OnStartNextTrial?.Invoke();
+		}
+
+		/// <summary>
+		/// This event is called when a trial completes.
+		/// </summary>
+		public event Action<bool> OnCompleteTrial;
+
+		/// <summary>
+		/// This method invokes the OnCompleteTrial event.
+		/// </summary>
+		public void CompleteTrial(bool timeExpired = false)
+		{
+			OnCompleteTrial?.Invoke(timeExpired);
 		}
 	}
 }

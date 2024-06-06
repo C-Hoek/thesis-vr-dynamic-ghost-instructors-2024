@@ -1,18 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-namespace Session
+namespace Sessions
 {
 	public class TrialInitiator : MonoBehaviour
 	{
-		[SerializeField] private TrialInitiatorObject _leftCube;
-		[SerializeField] private TrialInitiatorObject _rightCube;
-		[SerializeField] private TextMeshPro _initiationText;
+		[SerializeField] private TrialInitiatorObject leftCube;
+		[SerializeField] private TrialInitiatorObject rightCube;
+		[SerializeField] private TextMeshPro initiationText;
 
 		private const int HoldTime = 2;
-		private float heldTimer;
+		private float _heldTimer;
 
 		private bool _leftFilled;
 		private bool _rightFilled;
@@ -25,16 +23,16 @@ namespace Session
 		private void Update()
 		{
 			// Once the user holds for longer or equal to the hold time, start the trial.
-			if (heldTimer >= HoldTime) RemoveCubes();
+			if (_heldTimer >= HoldTime) RemoveCubes();
 
 			// Increment the timer.
 			if (_leftFilled && _rightFilled)
 			{
-				heldTimer += Time.deltaTime;
+				_heldTimer += Time.deltaTime;
 			}
 			else
 			{
-				heldTimer = 0f;
+				_heldTimer = 0f;
 			}
 		}
 
@@ -49,8 +47,8 @@ namespace Session
 		/// 1 if it was the right hand, and 2 if it was any other object. </param>
 		public void SetFlag(bool isFilled, TrialInitiatorObject cube, int collider)
 		{
-			if (cube == _leftCube && collider == 0) _leftFilled = isFilled;
-			else if (cube == _rightCube && collider == 1) _rightFilled = isFilled;
+			if (cube == leftCube && collider == 0) _leftFilled = isFilled;
+			else if (cube == rightCube && collider == 1) _rightFilled = isFilled;
 		}
 
 		/// <summary>
@@ -58,9 +56,9 @@ namespace Session
 		/// </summary>
 		private void RemoveCubes()
 		{
-			_initiationText.text = "";
-			Destroy(_leftCube.gameObject);
-			Destroy(_rightCube.gameObject);
+			initiationText.text = "";
+			Destroy(leftCube.gameObject);
+			Destroy(rightCube.gameObject);
 
 			// Start the next trial.
 			SessionEventHandler.Instance.StartNextTrial();

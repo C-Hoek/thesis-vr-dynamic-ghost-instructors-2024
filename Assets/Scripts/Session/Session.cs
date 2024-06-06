@@ -1,7 +1,7 @@
 using Task;
 using TransparencySettings;
 
-namespace Session
+namespace Sessions
 {
 	public record Session(int NumLearningTrials, int NumTestTrials, float TimeLimit, ITask Task, TransparencyInfo TransparencyInfo)
 	{
