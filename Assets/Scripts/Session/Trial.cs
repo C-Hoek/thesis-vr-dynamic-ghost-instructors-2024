@@ -3,15 +3,14 @@ using Task;
 
 namespace Sessions
 {
-	public record Trial(TrialPerformance TrialPerformance, ITask Task1, ITask Task2, float TimeLimit, bool IsTraining)
+	public record Trial(TrialPerformance TrialPerformance, GestureTask Task, float TimeLimit, bool IsTraining)
 	{
 		public TrialPerformance TrialPerformance { get; } = TrialPerformance;
-		public ITask Task1 { get; } = Task1;
-		public ITask Task2 { get; } = Task2;
+		public GestureTask Task { get; } = Task;
 
 		public float TimeLimit { get; } = TimeLimit;
 		public bool IsTraining { get; } = IsTraining;
-
+		
 		/// <summary>
 		/// This method tests if the current trial has been completed.
 		/// </summary>

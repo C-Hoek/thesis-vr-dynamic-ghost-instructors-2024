@@ -7,6 +7,7 @@ namespace GameEntities
 	public class Ghost : MonoBehaviour
 	{
 		[SerializeField] private GameObject ghostAvatar;
+		[SerializeField] private GameObject ghostHand;
 		[SerializeField] private Material ghostMaterial;
 
 		/// <summary>
@@ -17,8 +18,17 @@ namespace GameEntities
 			if (ghostAvatar is null) return;
 
 			// Log the position and transparency of the ghost avatar.
-			LogPosition();
-			LogTransparency();
+			// LogPosition();
+			// LogTransparency();
+		}
+
+		/// <summary>
+		/// This method sets the ghost's hand position
+		/// </summary>
+		/// <param name="position"> The target position of the ghost. </param>
+		public void SetPosition(Vector3 position)
+		{
+			ghostHand.transform.position = position;
 		}
 
 		/// <summary>

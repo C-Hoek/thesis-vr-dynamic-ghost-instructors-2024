@@ -124,11 +124,12 @@ namespace Sessions
 		public void Setup()
 		{
 			// Set up the session through the config object.
+			// TODO: set the object from the session controller and not the config!
 			s_session = new Session(
 				_config.numLearningTrials,
 				_config.numTestTrials,
 				_config.timeLimit,
-				ITask.SelectTask(_config.taskName),
+				new GestureTask(),
 				new TransparencyInfo(_config.minTransparency, _config.baseTransparency, _config.maxTransparency, _config.errorThreshold));
 
 			// Set up the transparency settings through the config object.

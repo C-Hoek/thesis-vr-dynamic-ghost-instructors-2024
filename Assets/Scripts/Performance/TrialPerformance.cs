@@ -61,7 +61,7 @@ namespace Performance
 		/// <param name="baselinePerformance"> The baseline performance of the student. </param>
 		/// <param name="taskPerformance"> The performance of the student during the most recently completed trial. </param>
 		/// <returns> A float representing the learning effect; defined as the difference between the baseline performance and current performance of the student. </returns>
-		private float CalculateLearningEffect(float? baselinePerformance, float taskPerformance)
+		private float CalculateLearningEffect(float? baselinePerformance, float taskPerformance) 
 		{
 			return baselinePerformance.HasValue ? taskPerformance - baselinePerformance.Value : 0f;
 		}
