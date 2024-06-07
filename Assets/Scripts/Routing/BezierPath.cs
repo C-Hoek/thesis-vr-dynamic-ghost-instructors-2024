@@ -27,6 +27,7 @@ namespace Routing
 		{
 			if (t > 30) return Vector3.zero;
 			//TODO: Set 30 to the time limit: SessionController.Session.TimeLimit;
+			//TODO: Get the approximate arc length from each bezier curve to smooth along all of them : )
 			var curveIndex = Mathf.CeilToInt(t / 30 * path.Count);
 			var curveDuration = 30 / path.Count;
 			var endTimePreviousCurve = curveDuration * Mathf.FloorToInt(t / 30 * path.Count);

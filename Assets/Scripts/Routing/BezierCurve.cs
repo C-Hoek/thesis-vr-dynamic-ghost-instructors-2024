@@ -1,4 +1,5 @@
-using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Routing
@@ -17,12 +18,57 @@ namespace Routing
 		[SerializeField] private GameObject control2;
 		private Vector3 C2 => control2.transform.position;
 
+		private const int NumApproximationPoints = 100;
+		private List<float> _segmentFractions;
+
+
+		/// <summary>
+		/// This method initialises the approximate segment spacing.
+		/// </summary>
+		private void Awake()
+		{
+			ApproximateSegmentLengthFractions();
+		}
+		
+		/// <summary>
+		/// This method uses the approximate segment length fractions to smooth the speed approximately evenly over the
+		/// entirety of the Bézier curve.
+		/// </summary>
+		/// <param name="t"> This represents the time parameter and should be scaled between 0 and 1. </param>
+		/// <returns> The target position at this point in time. </returns>
+		public Vector3 PositionAt(float t)
+		{
+			// Find the index + 1 of the current segment.
+			var i = 0;
+			var sumFractions = 0f;
+			while (sumFractions < t && i < NumApproximationPoints)
+			{
+				sumFractions += _segmentFractions[i];
+				i++;
+			}
+
+			// Find the index of the current segment.
+			i -= 1;
+			
+			// If the current segment is the start segment (which has length 0); return the starting position.
+			if (i == 0) return PosAt(0);
+			
+			// Find the progress within the section.
+			var tInSegment = (t - sumFractions) /
+			                     (_segmentFractions[i]);
+			
+			Debug.Log($"i: {i}, t: {t}, sum: {sumFractions}, fraction: {_segmentFractions[i]}, t in segment: {tInSegment}, {PosAt(tInSegment + i/100f)}");
+			
+			// Add the resulting tInSegment to the t belonging to the fraction and return the approximate point.
+			return PosAt(tInSegment + i/100f);
+		}
+		
 		/// <summary>
 		/// This method determines the vector at which an object following the curve should be at this point in time.
 		/// </summary>
 		/// <param name="t"> This represents the time parameter and should be scaled between 0 and 1. </param>
 		/// <returns> The position at this point in time. </returns>
-		public Vector3 PositionAt(float t)
+		private Vector3 PosAt(float t)
 		{
 			return Mathf.Pow(1 - t, 3) * P1 + 3 * Mathf.Pow(1 - t, 2) * t * C1 +
 			       3 * (1 - t) * Mathf.Pow(t, 2) * C2 + Mathf.Pow(t, 3) * P2;
@@ -45,8 +91,44 @@ namespace Routing
 			
 			for (var i = 0.0f; i < 1.0f; i += 0.01f)
 			{
-				Gizmos.DrawSphere(PositionAt(i), .005f);
+				Gizmos.DrawSphere(PosAt(i), .005f);
 			}
+		}
+
+		/// <summary>
+		/// This method approximates segment length fractions. Without using this method, the speed along the curve will vary.
+		/// First, the distances between 'NumApproximationPoints' - 1 points are estimated.
+		/// These distances are summed to provide the approximate arc length of the Bézier curve.
+		/// The segment fractions are defined as the segment length divided by the total arc length.
+		/// Lastly, each segment fraction is the sum of its own fraction + that of the previous segment.
+		/// </summary>
+		private void ApproximateSegmentLengthFractions()
+		{
+			var distList = new List<float>();
+			distList.Add(0);
+			for (var i = 1; i < NumApproximationPoints; i++)
+			{
+				var dist = Vector3.Distance(PosAt((i - 1) / 100f), PosAt(i / 100f));
+				distList.Add(dist);
+			}
+
+			// Obtain the approximate arc length.
+			var approxArcLength = distList.Sum();
+
+			// Determine the fraction of the total length per segment.
+			_segmentFractions = distList.Select(x => x / approxArcLength).ToList();
+
+			var j = 1;
+			var logString = "";
+			while (j < NumApproximationPoints)
+			{
+				// _segmentFractions[j] += _segmentFractions[j - 1];
+
+				logString += _segmentFractions[j] + ", ";
+				j++;
+			}
+			
+			Debug.Log(logString);
 		}
 	}
 }
