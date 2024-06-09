@@ -7,20 +7,37 @@ namespace Routing
 	public class BezierCurve : MonoBehaviour
 	{
 		[SerializeField] private GameObject start;
-		private Vector3 P1 => start.transform.position;
-		
-		[SerializeField] private GameObject end;
-		private Vector3 P2 => end.transform.position;
-		
-		[SerializeField] private GameObject control1;
-		private Vector3 C1 => control1.transform.position;
-		
-		[SerializeField] private GameObject control2;
-		private Vector3 C2 => control2.transform.position;
+		private Vector3 P1
+		{
+			get => start.transform.position;
+		}
 
-		private const int NumApproximationPoints = 100;
+		[SerializeField] private GameObject end;
+		private Vector3 P2
+		{
+			get => end.transform.position;
+		}
+
+		[SerializeField] private GameObject control1;
+		private Vector3 C1
+		{
+			get => control1.transform.position;
+		}
+
+		[SerializeField] private GameObject control2;
+		private Vector3 C2
+		{
+			get => control2.transform.position;
+		}
+
+		private const int NumApproximationPoints = 200;
 		private List<float> _segmentFractions;
 
+		private float _arcLength;
+		public float ArcLength
+		{
+			get => _arcLength;
+		}
 
 		/// <summary>
 		/// This method initialises the approximate segment spacing.
@@ -38,29 +55,23 @@ namespace Routing
 		/// <returns> The target position at this point in time. </returns>
 		public Vector3 PositionAt(float t)
 		{
-			// Find the index + 1 of the current segment.
+			// Find the index of the current segment.
 			var i = 0;
 			var sumFractions = 0f;
-			while (sumFractions < t && i < NumApproximationPoints)
+			while (sumFractions + _segmentFractions[i] < t && i < NumApproximationPoints)
 			{
 				sumFractions += _segmentFractions[i];
 				i++;
 			}
-
-			// Find the index of the current segment.
-			i -= 1;
 			
 			// If the current segment is the start segment (which has length 0); return the starting position.
 			if (i == 0) return PosAt(0);
 			
 			// Find the progress within the section.
-			var tInSegment = (t - sumFractions) /
-			                     (_segmentFractions[i]);
-			
-			Debug.Log($"i: {i}, t: {t}, sum: {sumFractions}, fraction: {_segmentFractions[i]}, t in segment: {tInSegment}, {PosAt(tInSegment + i/100f)}");
+			var tInSegment = (t - sumFractions) / _segmentFractions[i];
 			
 			// Add the resulting tInSegment to the t belonging to the fraction and return the approximate point.
-			return PosAt(tInSegment + i/100f);
+			return PosAt(tInSegment / 100f + sumFractions);
 		}
 		
 		/// <summary>
@@ -113,22 +124,16 @@ namespace Routing
 			}
 
 			// Obtain the approximate arc length.
-			var approxArcLength = distList.Sum();
+			_arcLength = distList.Sum();
 
 			// Determine the fraction of the total length per segment.
-			_segmentFractions = distList.Select(x => x / approxArcLength).ToList();
+			_segmentFractions = distList.Select(x => x / _arcLength).ToList();
 
 			var j = 1;
-			var logString = "";
 			while (j < NumApproximationPoints)
 			{
-				// _segmentFractions[j] += _segmentFractions[j - 1];
-
-				logString += _segmentFractions[j] + ", ";
 				j++;
 			}
-			
-			Debug.Log(logString);
 		}
 	}
 }

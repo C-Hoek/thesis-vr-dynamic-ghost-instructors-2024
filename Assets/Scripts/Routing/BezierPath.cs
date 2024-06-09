@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Sessions;
+using System.Linq;
 using UnityEngine;
 
 namespace Routing
@@ -27,14 +27,28 @@ namespace Routing
 		{
 			if (t > 30) return Vector3.zero;
 			//TODO: Set 30 to the time limit: SessionController.Session.TimeLimit;
-			//TODO: Get the approximate arc length from each bezier curve to smooth along all of them : )
-			var curveIndex = Mathf.CeilToInt(t / 30 * path.Count);
-			var curveDuration = 30 / path.Count;
-			var endTimePreviousCurve = curveDuration * Mathf.FloorToInt(t / 30 * path.Count);
+			
+			// Find the target curve
+			var arcLengths = path.Select(x => x.ArcLength).ToList();
+			var totalArcLength = arcLengths.Sum();
 
-			var progressIntoCurrentCurve = (t - endTimePreviousCurve) / curveDuration;
-
-			return path[curveIndex].PositionAt(progressIntoCurrentCurve);
+			var i = 0;
+			var prevEndTime = 0f;
+			while (prevEndTime + 30 * arcLengths[i] / totalArcLength < t)
+			{
+				// Increment the previous end time by the time limit * the fraction of the total path length that the curve poses.
+				prevEndTime += 30 * arcLengths[i] / totalArcLength;
+				i++;
+			}
+			
+			// Obtain the curve duration.
+			var curveDuration = 30 * arcLengths[i] / totalArcLength;
+			
+			// Calculate the progress in the current curve.
+			var progressIntoCurrentCurve = (t - prevEndTime) / curveDuration;
+			
+			// Return the target position.
+			return path[i].PositionAt(progressIntoCurrentCurve);
 		}
 	}	
 }
