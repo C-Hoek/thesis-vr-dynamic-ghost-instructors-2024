@@ -53,10 +53,18 @@ namespace Sessions
 		// Variables used to keep track of the session state.
 		private int _trialIndex = 0;
 		private bool _started;
+		public bool _startNextTrialCaller;
 		private bool _infoLogged;
 
-		private List<TrialPerformance> _trialPerformances;
+		private List<TrialPerformance> _trialPerformances = new List<TrialPerformance>();
 
+		public void Update()
+		{
+			if (!_startNextTrialCaller) return;
+			_startNextTrialCaller = false;
+			SessionEventHandler.Instance.StartNextTrial();
+		}
+		
 		/// <summary>
 		/// This method subscribes to the OnStartNextTrial event.
 		/// </summary>
@@ -103,6 +111,9 @@ namespace Sessions
 			var error = ErrorCalculation.CalculateError(_student.GetTransform(), _ghost.GetTransform());
 			Logger?.Log(ErrorCalculation.LogError(_student.transform, _ghost.transform, error));
 			_ghost.SetTransparency(_transparencySetting.TargetGhostTransparency(error, _trialIndex));
+			
+			// Set the ghost avatar's hand position to the appropriate task position.
+			s_session.Task.SetGhostPosition(_ghost, time);
 
 			// Add the error to the trial performance.
 			_trialPerformances ??= new List<TrialPerformance>();
@@ -124,14 +135,13 @@ namespace Sessions
 		public void Setup()
 		{
 			// Set up the session through the config object.
-			// TODO: set the object from the session controller and not the config!
 			s_session = new Session(
 				_config.numLearningTrials,
 				_config.numTestTrials,
 				_config.timeLimit,
-				new GestureTask(),
+				new TaskHolder(),
 				new TransparencyInfo(_config.minTransparency, _config.baseTransparency, _config.maxTransparency, _config.errorThreshold));
-
+			
 			// Set up the transparency settings through the config object.
 			_transparencySetting = ITransparencySetting.SelectTransparencySetting(_config.transparencyType);
 		}
@@ -142,6 +152,7 @@ namespace Sessions
 		public void StartTrial()
 		{
 			Logger.Log("Trial Started");
+			TimeController.Enabled = true;
 			_started = true;
 		}
 
@@ -150,6 +161,7 @@ namespace Sessions
 		/// </summary>
 		private void CompleteTrial(bool timeExpired)
 		{
+			if (!_started) return;
 			Logger.Log($"Trial Complete Within Time Limit{Logger.Delimiter}{timeExpired}");
 			_trialPerformances[_trialIndex].CalculateTrialStatistics(_student.BaselinePerformance, TimeController.CurrentTime, timeExpired);
 			Logger.Log(_trialPerformances[_trialIndex].LogPerformance());
@@ -182,6 +194,10 @@ namespace Sessions
 			_trialIndex += 1;
 			_trialPerformances.Add(new TrialPerformance());
 			SceneManager.LoadScene("TestEnvironment");
+
+			var taskObj = Instantiate(s_session.Task.Setup(), transform, false);
+			// Set the task object to the appropriate place.
+			taskObj.transform.position = s_session.Task.TaskPosition;
 		}
 	}
 }

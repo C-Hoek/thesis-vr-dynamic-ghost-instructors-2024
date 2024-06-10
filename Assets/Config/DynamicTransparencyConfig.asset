@@ -12,11 +12,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20f623bfad30d5f46a895697947ab258, type: 3}
   m_Name: DynamicTransparencyConfig
   m_EditorClassIdentifier: 
-  logString: 
-  numLearningTrials: 0
-  numTestTrials: 0
-  timeLimit: 0
-  taskName: 
-  transparencyType: 
-  baseTransparency: 0
-  errorThreshold: 0
+  logString: Dynamic Transparency
+  numLearningTrials: 10
+  numTestTrials: 3
+  timeLimit: 30
+  transparencyType: dynamic
+  minTransparency:
+  - 0.2
+  - 0.2
+  - 0.2
+  - 0.1
+  - 0.1
+  - 0.05
+  - 0.05
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  baseTransparency: 0.2
+  maxTransparency:
+  - 0.2
+  - 0.2
+  - 0.2
+  - 0.2
+  - 0.2
+  - 0.2
+  - 0.2
+  - 0.2
+  - 0.2
+  - 0.2
+  - 0
+  - 0
+  - 0
+  errorThreshold: 0.3

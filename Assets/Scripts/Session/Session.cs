@@ -3,13 +3,13 @@ using TransparencySettings;
 
 namespace Sessions
 {
-	public record Session(int NumLearningTrials, int NumTestTrials, float TimeLimit, GestureTask Task, TransparencyInfo TransparencyInfo)
+	public record Session(int NumLearningTrials, int NumTestTrials, float TimeLimit, TaskHolder Task, TransparencyInfo TransparencyInfo)
 	{
 		public int NumLearningTrials { get; } = NumLearningTrials;
 		public int NumTestTrials { get; } = NumTestTrials;
 
 		public float TimeLimit { get; } = TimeLimit;
-		public GestureTask Task { get; } = Task;
+		public TaskHolder Task { get; } = Task;
 
 		public TransparencyInfo TransparencyInfo { get; } = TransparencyInfo;
 

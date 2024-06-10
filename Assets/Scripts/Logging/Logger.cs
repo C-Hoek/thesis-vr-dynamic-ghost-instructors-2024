@@ -49,7 +49,6 @@ namespace Logging
 				$"#LearningTrials{Delimiter} {config.numLearningTrials}\n" +
 				$"#TestTrials{Delimiter} {config.numTestTrials}\n" +
 				$"Time Limit{Delimiter} {config.timeLimit}\n" +
-				$"Task{Delimiter} {config.taskName}\n" +
 				$"Base Transparency{Delimiter} {config.baseTransparency}\n" +
 				$"Min Transparency{Delimiter} {config.minTransparency}\n" +
 				$"Max Transparency{Delimiter} {config.maxTransparency}\n" +

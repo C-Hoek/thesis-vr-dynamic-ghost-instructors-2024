@@ -1004,8 +1004,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   configDropdown: {fileID: 328134207}
-  staticConfig: {fileID: 11400000, guid: bd37277941500074b80f4f691a791278, type: 2}
-  dynamicConfig: {fileID: 11400000, guid: be1300780b4afc34dbfc3608246fd224, type: 2}
+  staticConfig: {fileID: 11400000, guid: cef4d6508da142648bd43a837022a653, type: 2}
+  dynamicConfig: {fileID: 11400000, guid: bb8151a6e7d684946b16c0c648150cfe, type: 2}
   sessionController: {fileID: 2123139523}
 --- !u!1 &1082257482
 GameObject:

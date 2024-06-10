@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20f623bfad30d5f46a895697947ab258, type: 3}
   m_Name: BaseTransparencyConfig
   m_EditorClassIdentifier: 
-  logString: 
-  numLearningTrials: 0
-  numTestTrials: 0
-  timeLimit: 0
-  taskName: 
-  transparencyType: 
-  baseTransparency: 0
-  errorThreshold: 0
+  logString: Base Transparency
+  numLearningTrials: 10
+  numTestTrials: 3
+  timeLimit: 30
+  transparencyType: base
+  minTransparency: []
+  baseTransparency: 0.2
+  maxTransparency: []
+  errorThreshold: 0.3

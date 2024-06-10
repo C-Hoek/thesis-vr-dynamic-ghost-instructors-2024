@@ -1,45 +1,44 @@
-using GameEntities;
+﻿using GameEntities;
 using Routing;
 using UnityEngine;
 
 namespace Task
 {
-	// TODO: Revert this to a non-monobehaviour.
-	public class GestureTask : MonoBehaviour
+	public class TaskHolder
 	{
 		private GameObject _taskObject;
-		[SerializeField] private BezierPath _path;
-		[SerializeField] private Ghost _ghost;
+		private BezierPath _path;
 		
-		// TODO: Remove this component.
-		private float _time = 0f;
 		private bool _setupDone;
+
+		private Vector3 _taskPosition = new Vector3(0, 0.160999998f + 1, -95.2139969f + 90);
+		public Vector3 TaskPosition
+		{
+			get => _taskPosition;
+		}
 		
 		/// <summary>
 		/// This method sets up the task by retrieving its path.
 		/// </summary>
-		public void Setup(Ghost ghost)
+		/// <returns> The test object containing the path information. </returns>
+		public GameObject Setup()
 		{
-			//TODO: actually add a proper reference here : )
-			_taskObject = Resources.Load<GameObject>("");
+			_taskObject = Resources.Load<GameObject>("TaskPrefabs/TestObject");
 			_path = _taskObject.GetComponent<BezierPath>();
-			_ghost = ghost;
 			_setupDone = true;
-		}
-		
-		public void Update()
-		{
-			_time += Time.deltaTime;
-			SetGhostPosition(_time);
+			return _taskObject;
 		}
 
 		/// <summary>
 		/// This method sets the hand position of the ghost.
 		/// </summary>
+		/// <param name="ghost"> The ghost avatar. </param>
 		/// <param name="t"> The current point in time. </param>
-		public void SetGhostPosition(float t)
+		public void SetGhostPosition(Ghost ghost, float t)
 		{
-			_ghost.SetPosition(_path.PositionAt(t));
+			if (!_setupDone) return;
+			
+			ghost.SetPosition(_path.PositionAt(t));
 		}
 		
 		/// <summary>

@@ -13,7 +13,6 @@ namespace Config
 		public int numTestTrials;
 
 		public float timeLimit;
-		public string taskName;
 
 		public string transparencyType;
 		public List<float> minTransparency;
@@ -21,6 +20,10 @@ namespace Config
 		public List<float> maxTransparency;
 		public float errorThreshold;
 
+		/// <summary>
+		/// This method returns the log string.
+		/// </summary>
+		/// <returns> A string containing config information. </returns>
 		public string LogConfig()
 		{
 			return logString;
