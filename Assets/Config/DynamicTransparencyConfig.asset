@@ -15,6 +15,7 @@ MonoBehaviour:
   logString: Dynamic Transparency
   numLearningTrials: 10
   numTestTrials: 3
+  timeToCompletePath: 25
   timeLimit: 30
   transparencyType: dynamic
   minTransparency:

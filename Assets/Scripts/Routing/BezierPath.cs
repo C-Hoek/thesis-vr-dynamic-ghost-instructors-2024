@@ -16,8 +16,8 @@ namespace Routing
 		/// <returns> The position that occurs at the passed time value in the Bezier path. </returns>
 		public Vector3 PositionAt(float t)
 		{
-			var time = SessionController.Session.TimeLimit;
-			if (t > time) return Vector3.zero;
+			var time = SessionController.Session.TimeToCompletePath;
+			if (t > time) return path[path.Count - 1].PositionAt(1);
 			
 			// Find the target curve
 			var arcLengths = path.Select(x => x.ArcLength).ToList();

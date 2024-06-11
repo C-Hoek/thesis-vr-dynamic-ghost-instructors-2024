@@ -11,6 +11,7 @@ namespace Config
 		public int numLearningTrials;
 		public int numTestTrials;
 
+		public float timeToCompletePath;
 		public float timeLimit;
 
 		public string transparencyType;

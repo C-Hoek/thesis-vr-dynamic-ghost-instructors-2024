@@ -148,6 +148,7 @@ namespace Sessions
 			s_session = new Session(
 				_config.numLearningTrials,
 				_config.numTestTrials,
+				_config.timeToCompletePath,
 				_config.timeLimit,
 				new TaskHolder(),
 				new TransparencyInfo(_config.minTransparency, _config.baseTransparency, _config.maxTransparency, _config.errorThreshold),

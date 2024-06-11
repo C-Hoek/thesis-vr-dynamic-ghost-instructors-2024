@@ -3,11 +3,12 @@ using TransparencySettings;
 
 namespace Sessions
 {
-	public record Session(int NumLearningTrials, int NumTestTrials, float TimeLimit, TaskHolder Task, TransparencyInfo TransparencyInfo, string SessionID)
+	public record Session(int NumLearningTrials, int NumTestTrials, float TimeToCompletePath, float TimeLimit, TaskHolder Task, TransparencyInfo TransparencyInfo, string SessionID)
 	{
 		public int NumLearningTrials { get; } = NumLearningTrials;
 		public int NumTestTrials { get; } = NumTestTrials;
 
+		public float TimeToCompletePath { get; } = TimeToCompletePath;
 		public float TimeLimit { get; } = TimeLimit;
 		public TaskHolder Task { get; } = Task;
 

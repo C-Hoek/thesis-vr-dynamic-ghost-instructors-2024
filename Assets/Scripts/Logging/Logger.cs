@@ -48,6 +48,7 @@ namespace Logging
 				$"Configuration{Delimiter} {config.logString}\n" +
 				$"#LearningTrials{Delimiter} {config.numLearningTrials}\n" +
 				$"#TestTrials{Delimiter} {config.numTestTrials}\n" +
+				$"Time To Complete Path{Delimiter} {config.timeToCompletePath}\n" +
 				$"Time Limit{Delimiter} {config.timeLimit}\n" +
 				$"Base Transparency{Delimiter} {config.baseTransparency}\n" +
 				$"Min Transparency{Delimiter} {Utils.LogList(config.minTransparency)}\n" +
