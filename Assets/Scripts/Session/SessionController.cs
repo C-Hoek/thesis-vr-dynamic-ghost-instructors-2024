@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Config;
 using GameEntities;
 using Performance;
+using Routing;
 using Task;
 using TransparencySettings;
 using UnityEngine;
@@ -101,7 +102,6 @@ namespace Sessions
 				_infoLogged = Logger is not null;
 			}
 
-			_ghost ??= FindObjectOfType<Ghost>();
 			_student ??= FindObjectOfType<Student>();
 			
 			if (_ghost is null || _student is null) return;
@@ -158,6 +158,8 @@ namespace Sessions
 			Logger.Log("Trial Started");
 			TimeController.Enabled = true;
 			_started = true;
+			_ghost = FindObjectOfType<Ghost>();
+			_ghost.SetActive();
 		}
 
 		/// <summary>
@@ -190,10 +192,11 @@ namespace Sessions
 			_started = false;
 			
 			// Load the menu if the session is complete.
-			if (s_session.IsComplete(s_trialIndex))
+			if (s_session.IsComplete(s_trialIndex + 1))
 			{
 				CompleteSession();
 				SceneManager.LoadScene("Menu");
+				return;
 			}
 			
 			// Load the next trial of the session.
@@ -201,9 +204,18 @@ namespace Sessions
 			_trialPerformances.Add(new TrialPerformance());
 			SceneManager.LoadScene("TestEnvironment");
 
+			// Set up the task object.
 			var taskObj = Instantiate(s_session.Task.Setup(), transform, false);
+			var path = taskObj.GetComponentInChildren<BezierPath>();
+			s_session.Task.Path = path;
 			// Set the task object to the appropriate place.
 			taskObj.transform.position = s_session.Task.TaskPosition;
+			
+			// Clear the logger, ghost, and student.
+			s_logger = null;
+			_student = null;
+			_ghost = null;
+			_completed = false;
 		}
 	}
 }

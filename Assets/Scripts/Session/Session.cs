@@ -23,7 +23,8 @@ namespace Sessions
 		/// <returns> True if all trials have been loaded. </returns>
 		public bool IsComplete(int trialIndex)
 		{
-			return trialIndex == NumLearningTrials + NumTestTrials;
+			// The trial index is 0-based while the number is not, therefore we add 1 to the index.
+			return trialIndex + 1 == NumLearningTrials + NumTestTrials;
 		}
 	}
 }

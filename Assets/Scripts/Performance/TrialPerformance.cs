@@ -44,7 +44,7 @@ namespace Performance
 			// Obtain completion statistics.
 			var timeToCompletion = completionTime;
 
-			var completed = timeExpired;
+			var completed = !timeExpired;
 
 			// Calculate the task performance and learning effect.
 			var taskPerformance = CalculateTaskPerformance(errors);

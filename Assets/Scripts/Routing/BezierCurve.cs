@@ -55,6 +55,9 @@ namespace Routing
 		/// <returns> The target position at this point in time. </returns>
 		public Vector3 PositionAt(float t)
 		{
+			// If the end of the path should be given, return the end of the path.
+			if (t >= 1.0f) return PosAt(1.0f);
+			
 			// Find the index of the current segment.
 			var i = 0;
 			var sumFractions = 0f;

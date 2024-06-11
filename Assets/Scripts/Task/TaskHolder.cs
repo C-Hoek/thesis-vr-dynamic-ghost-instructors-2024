@@ -8,6 +8,10 @@ namespace Task
 	{
 		private GameObject _taskObject;
 		private BezierPath _path;
+		public BezierPath Path
+		{
+			set => _path = value;
+		}
 		
 		private bool _setupDone;
 
@@ -24,7 +28,6 @@ namespace Task
 		public GameObject Setup()
 		{
 			_taskObject = Resources.Load<GameObject>("TaskPrefabs/TestObject");
-			_path = _taskObject.GetComponent<BezierPath>();
 			_setupDone = true;
 			return _taskObject;
 		}
@@ -37,7 +40,6 @@ namespace Task
 		public void SetGhostPosition(Ghost ghost, float t)
 		{
 			if (!_setupDone) return;
-			
 			ghost.SetPosition(_path.PositionAt(t));
 		}
 

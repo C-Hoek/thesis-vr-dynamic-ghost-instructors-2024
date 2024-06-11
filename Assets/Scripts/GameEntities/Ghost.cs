@@ -23,6 +23,14 @@ namespace GameEntities
 		}
 
 		/// <summary>
+		/// This method shows the ghost avatar.
+		/// </summary>
+		public void SetActive()
+		{
+			ghostAvatar.SetActive(true);
+		}
+
+		/// <summary>
 		/// This method sets the ghost's hand position
 		/// </summary>
 		/// <param name="position"> The target position of the ghost. </param>
