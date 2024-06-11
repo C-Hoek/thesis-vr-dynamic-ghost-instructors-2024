@@ -6,8 +6,11 @@ namespace GameEntities
 {
 	public class Student : MonoBehaviour
 	{
-		[SerializeField] private GameObject studentAvatar;
 		[SerializeField] private HandAnimationController animationController;
+		[SerializeField] private Transform handBone;
+		[SerializeField] private Transform headTarget;
+
+		private Vector3 _handToPointerOffset = new Vector3(0.0155999996f, 0.172999993f, 0.0188999996f);
 
 		private float? _baselinePerformance;
 		public float? BaselinePerformance {
@@ -20,8 +23,6 @@ namespace GameEntities
 		/// </summary>
 		public void FixedUpdate()
 		{
-			if (studentAvatar is null) return;
-
 			// Log the position and transparency of the ghost avatar.
 			LogPosition();
 		}
@@ -35,11 +36,11 @@ namespace GameEntities
 		}
 
 		/// <summary>
-		/// This method returns the transform of the student avatar.
+		/// This method returns the transform of the student avatar's pointer hand.
 		/// </summary>
-		/// <returns> The transform of the student avatar. </returns>
+		/// <returns> The transform of the student avatar's pointer hand. </returns>
 		public Transform GetTransform() {
-			return studentAvatar.transform;
+			return handBone.transform;
 		}
 
 		/// <summary>
@@ -47,8 +48,9 @@ namespace GameEntities
 		/// </summary>
 		private void LogPosition()
 		{
-			// TODO: Log relevant stuff.
-			var logString = "Student Position" + Logger.Delimiter + this.transform.position;
+			var logString = $"Student Hand Position{Logger.Delimiter}{handBone.transform.position}{Logger.Delimiter}" +
+				$"Student Hand Pointer Position{Logger.Delimiter}{handBone.transform.position + _handToPointerOffset}" +
+				$"Student Head Position{Logger.Delimiter}{headTarget.transform.position}{Logger.Delimiter}Student Head Rotation{Logger.Delimiter}{headTarget.transform.rotation}";
 			SessionController.Logger.Log(logString);
 		}
 	}

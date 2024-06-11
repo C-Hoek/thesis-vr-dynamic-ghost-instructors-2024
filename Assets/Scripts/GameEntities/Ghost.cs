@@ -7,9 +7,22 @@ namespace GameEntities
 	public class Ghost : MonoBehaviour
 	{
 		[SerializeField] private GameObject ghostAvatar;
-		[SerializeField] private GameObject ghostHand;
+		[SerializeField] private GameObject handTarget;
+		[SerializeField] private GameObject handBone;
+		
+		public Vector3 characterCameraOffset;
+		private readonly Vector3 _handToPointerOffset = new Vector3(0.0155999996f, 0.172999993f, 0.0188999996f);
+		
 		[SerializeField] private Material ghostMaterial;
 
+		/// <summary>
+		/// This method sets the character's offset to take into account head-bone-to-eye differences among others.
+		/// </summary>
+		public void Awake()
+		{
+			transform.position += characterCameraOffset;
+		}
+		
 		/// <summary>
 		/// This method is used to log the position and transparency of the ghost avatar.
 		/// </summary>
@@ -36,7 +49,7 @@ namespace GameEntities
 		/// <param name="position"> The target position of the ghost. </param>
 		public void SetPosition(Vector3 position)
 		{
-			ghostHand.transform.position = position;
+			handTarget.transform.position = position - _handToPointerOffset;
 		}
 
 		/// <summary>
@@ -60,16 +73,17 @@ namespace GameEntities
 		/// </summary>
 		/// <returns> The transform of the ghost avatar. </returns>
 		public Transform GetTransform() {
-			return ghostAvatar.transform;
+			return handBone.transform;
 		}
 
 		/// <summary>
-		/// This method logs the position of the object that this script is attached to.
+		/// This method logs the position of the ghost's hand pointer that this script is attached to.
 		/// </summary>
 		private void LogPosition()
 		{
-			// TODO: Log relevant stuff.
-			var logString = "Ghost Position" + Logger.Delimiter + this.transform.position;
+			var logString = $"Ghost Hand Position{Logger.Delimiter}{handBone.transform.position}{Logger.Delimiter}" +
+				$"Ghost Hand Pointer Position{Logger.Delimiter}{handBone.transform.position + _handToPointerOffset}{Logger.Delimiter}" +
+				$"Ghost Hand Target Position{Logger.Delimiter}{handTarget.transform.position}";
 			SessionController.Logger.Log(logString);
 		}
 		
