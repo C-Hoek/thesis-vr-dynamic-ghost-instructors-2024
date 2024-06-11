@@ -17,6 +17,8 @@ namespace Sessions
 			set => s_enabled = value;
 		}
 
+		private bool _trialFinished;
+
 		/// <summary>
 		/// This method subscribes to the OnStartNextTrial event.
 		/// </summary>
@@ -38,11 +40,16 @@ namespace Sessions
 		/// </summary>
 		public void Update()
 		{
-			if (!s_enabled) return;
+			if (!s_enabled || _trialFinished) return;
 			
 			s_currentTime += Time.deltaTime * 1000f;
 
-			if (s_currentTime > _timeLimit) SessionEventHandler.Instance.CompleteTrial(timeExpired: true);
+			if (s_currentTime > _timeLimit)
+			{
+				SessionEventHandler.Instance.CompleteTrial(timeExpired: true);
+				_trialFinished = true;
+			}
+			
 		}
 
 		/// <summary>

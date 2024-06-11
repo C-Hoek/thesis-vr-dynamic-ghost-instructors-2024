@@ -11,12 +11,14 @@ namespace Sessions
 		[SerializeField] private TextMeshProUGUI initiationText;
 
 		private const int HoldTime = 2;
+		private const float EndHoldTime = 0.2f;
 		private float _heldTimer;
 
 		private bool _leftFilled;
 		private bool _rightFilled;
 
 		private bool _trialStarted;
+		private bool _trialFinished;
 		
 		/// <summary>
 		/// This method subscribes to the OnPathComplete event.
@@ -48,9 +50,16 @@ namespace Sessions
 		/// </summary>
 		private void Update()
 		{
+			if (_trialFinished) return;
+			
 			// Once the user holds for longer or equal to the hold time, start the trial.
 			if (_heldTimer >= HoldTime && !_trialStarted) RemoveCubes();
-			else if (_heldTimer >= HoldTime) SessionEventHandler.Instance.CompleteTrial();
+			else if (_heldTimer >= EndHoldTime && _trialStarted)
+			{
+				SessionEventHandler.Instance.CompleteTrial();
+				_trialFinished = true;
+			}
+			
 
 			// Increment the timer.
 			if (_leftFilled && _rightFilled)
@@ -94,9 +103,11 @@ namespace Sessions
 			initiationText.text = "";
 
 			SessionEventHandler.Instance.StartNextTrial();
-			
-			Destroy(leftCube);
-			Destroy(rightCube);
+
+			Destroy(leftCube.gameObject);
+			Destroy(rightCube.gameObject);
+			_heldTimer = 0;
+			_trialStarted = true;
 			_leftFilled = false;
 			_rightFilled = false;
 		}

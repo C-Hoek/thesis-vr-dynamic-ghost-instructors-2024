@@ -153,7 +153,7 @@ namespace Sessions
 		/// <summary>
 		/// This method starts the trial and logs that the trial has been started.
 		/// </summary>
-		public void StartTrial()
+		private void StartTrial()
 		{
 			_student.ActivatePointingAnimation();
 			Logger.Log("Trial Started");
@@ -171,7 +171,7 @@ namespace Sessions
 			if (!_started || _completed) return;
 			
 			_completed = true;
-			Logger.Log($"Trial Complete Within Time Limit{Logger.Delimiter}{timeExpired}");
+			Logger.Log($"Trial Complete Within Time Limit{Logger.Delimiter}{!timeExpired}");
 			_trialPerformances[s_trialIndex].CalculateTrialStatistics(_student.BaselinePerformance, TimeController.CurrentTime, timeExpired);
 			Logger.Log(_trialPerformances[s_trialIndex].LogPerformance());
 			LoadTrial();
