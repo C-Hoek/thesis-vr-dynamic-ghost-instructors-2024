@@ -11,7 +11,7 @@ namespace Sessions
 		[SerializeField] private TextMeshProUGUI initiationText;
 
 		private const int HoldTime = 2;
-		private const float EndHoldTime = 0.2f;
+		private const float EndHoldTime = 1.5f;
 		private float _heldTimer;
 
 		private bool _leftFilled;
@@ -59,7 +59,6 @@ namespace Sessions
 				SessionEventHandler.Instance.CompleteTrial();
 				_trialFinished = true;
 			}
-			
 
 			// Increment the timer.
 			if (_leftFilled && _rightFilled)
@@ -83,10 +82,10 @@ namespace Sessions
 		/// 1 if it was the right hand, and 2 if it was any other object. </param>
 		public void SetFlag(bool isFilled, TrialStatusChangerObject cube, int collider)
 		{
-			if (cube == endCube)
+			if (cube == endCube && collider is 0 or 1)
 			{
-				_leftFilled = true;
-				_rightFilled = true;
+				_leftFilled = isFilled;
+				_rightFilled = isFilled;
 			}
 			
 			// If the trial has started, the start cubes have been destroyed. Return if this is the case.

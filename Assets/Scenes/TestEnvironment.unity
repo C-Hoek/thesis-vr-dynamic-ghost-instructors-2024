@@ -3813,7 +3813,7 @@ PrefabInstance:
     - target: {fileID: 8528082543100089944, guid: 613a7a2cb16f5354c8cc0fe84160cc4e,
         type: 3}
       propertyPath: m_TagString
-      value: Right
+      value: Untagged
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
