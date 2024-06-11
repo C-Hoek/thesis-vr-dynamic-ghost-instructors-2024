@@ -51,7 +51,8 @@ namespace Sessions
 		private void StartTimer()
 		{
 			s_currentTime = 0f;
-			_timeLimit = SessionController.Session.TimeLimit;
+			// Adjust the time limit to take into account the millisecond counter of the time controller.
+			_timeLimit = SessionController.Session.TimeLimit * 1000f;
 		}
 
 		/// <summary>

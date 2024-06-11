@@ -13,7 +13,6 @@ namespace Sessions
 		private void OnTriggerEnter(Collider other)
 		{
 			// Check which object collided with the trial initiator object.
-			// TODO: Set the hand's tags to Right and Left.
 			var colliderIndex = 0;
 			if (other.gameObject.CompareTag("Right"))
 			{

@@ -7,7 +7,7 @@ namespace Sessions
 	{
 		[SerializeField] private TrialInitiatorObject leftCube;
 		[SerializeField] private TrialInitiatorObject rightCube;
-		[SerializeField] private TextMeshPro initiationText;
+		[SerializeField] private TextMeshProUGUI initiationText;
 
 		private const int HoldTime = 2;
 		private float _heldTimer;
@@ -57,11 +57,10 @@ namespace Sessions
 		private void RemoveCubes()
 		{
 			initiationText.text = "";
-			Destroy(leftCube.gameObject);
-			Destroy(rightCube.gameObject);
 
 			// Start the next trial.
 			SessionEventHandler.Instance.StartNextTrial();
+			Destroy(this);
 		}
 	}
 
