@@ -28,7 +28,7 @@ namespace GameEntities
 		/// </summary>
 		public void FixedUpdate()
 		{
-			if (ghostAvatar is null) return;
+			if (ghostAvatar is null || !SessionController.Started) return;
 
 			// Log the position and transparency of the ghost avatar.
 			LogPosition();

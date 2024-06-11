@@ -60,7 +60,12 @@ namespace Sessions
 
 		// Variables used to keep track of the session state.
 		private static int s_trialIndex = -1;
-		private bool _started;
+		private static bool s_started;
+		public static bool Started
+		{
+			get => s_started;
+		}
+		
 		private bool _completed;
 		private bool _infoLogged;
 
@@ -97,7 +102,7 @@ namespace Sessions
 		{
 			_student ??= FindObjectOfType<Student>();
 			
-			if (!_started) return;
+			if (!s_started) return;
 			if (!_infoLogged)
 			{
 				Logger?.LogTrialInfo(s_trialIndex, _config);
@@ -158,7 +163,7 @@ namespace Sessions
 			_student.ActivatePointingAnimation();
 			Logger.Log("Trial Started");
 			TimeController.Enabled = true;
-			_started = true;
+			s_started = true;
 			_ghost = FindObjectOfType<Ghost>();
 			_ghost.SetActive();
 		}
@@ -168,7 +173,7 @@ namespace Sessions
 		/// </summary>
 		private void CompleteTrial(bool timeExpired)
 		{
-			if (!_started || _completed) return;
+			if (!s_started || _completed) return;
 			
 			_completed = true;
 			Logger.Log($"Trial Complete Within Time Limit{Logger.Delimiter}{!timeExpired}");
@@ -190,7 +195,7 @@ namespace Sessions
 		/// </summary>
 		public void LoadTrial()
 		{
-			_started = false;
+			s_started = false;
 			
 			// Load the menu if the session is complete.
 			if (s_session.IsComplete(s_trialIndex + 1))
