@@ -13,7 +13,8 @@ namespace TransparencySettings
 		/// <returns> A value between 0 and 1. Where 1 denotes completely visible, and 0 denotes completely invisible. This is the same value as the base transparency in the config objects. </returns>
 		public float TargetGhostTransparency(float calculatedError, int trialIndex)
 		{
-			return SessionController.Session.TransparencyInfo.BaseTransparency;
+			// If the trial index (0-based) indicates a test trial, return 0 as the ghost should not be visible in the test stage.
+			return trialIndex + 1 > SessionController.Session.NumLearningTrials ? 0.0f : SessionController.Session.TransparencyInfo.BaseTransparency;
 		}
 	}
 }
