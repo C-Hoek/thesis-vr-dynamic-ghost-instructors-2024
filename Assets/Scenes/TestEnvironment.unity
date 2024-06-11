@@ -3120,6 +3120,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   studentAvatar: {fileID: 593713740}
+  animationController: {fileID: 1630216016}
 --- !u!1 &1214630108
 GameObject:
   m_ObjectHideFlags: 0
@@ -3813,6 +3814,18 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1134953225}
   m_SourcePrefab: {fileID: 100100000, guid: 613a7a2cb16f5354c8cc0fe84160cc4e, type: 3}
+--- !u!114 &1630216016 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9028306949739311788, guid: 613a7a2cb16f5354c8cc0fe84160cc4e,
+    type: 3}
+  m_PrefabInstance: {fileID: 1630216015}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1134953224}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f575a831877780b44a03027f27b72257, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1763855825
 GameObject:
   m_ObjectHideFlags: 0

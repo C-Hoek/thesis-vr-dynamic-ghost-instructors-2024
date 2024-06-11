@@ -95,14 +95,14 @@ namespace Sessions
 		/// </summary>
 		public void FixedUpdate()
 		{
+			_student ??= FindObjectOfType<Student>();
+			
 			if (!_started) return;
 			if (!_infoLogged)
 			{
 				Logger?.LogTrialInfo(s_trialIndex, _config);
 				_infoLogged = Logger is not null;
 			}
-
-			_student ??= FindObjectOfType<Student>();
 			
 			if (_ghost is null || _student is null) return;
 
@@ -155,6 +155,7 @@ namespace Sessions
 		/// </summary>
 		public void StartTrial()
 		{
+			_student.ActivatePointingAnimation();
 			Logger.Log("Trial Started");
 			TimeController.Enabled = true;
 			_started = true;

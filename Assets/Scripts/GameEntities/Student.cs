@@ -7,6 +7,7 @@ namespace GameEntities
 	public class Student : MonoBehaviour
 	{
 		[SerializeField] private GameObject studentAvatar;
+		[SerializeField] private HandAnimationController animationController;
 
 		private float? _baselinePerformance;
 		public float? BaselinePerformance {
@@ -23,6 +24,14 @@ namespace GameEntities
 
 			// Log the position and transparency of the ghost avatar.
 			LogPosition();
+		}
+
+		/// <summary>
+		/// This method starts the pointing animation of the student.
+		/// </summary>
+		public void ActivatePointingAnimation()
+		{
+			animationController.ActivatePointAnimation();
 		}
 
 		/// <summary>
