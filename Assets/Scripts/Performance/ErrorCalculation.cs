@@ -1,5 +1,5 @@
 using UnityEngine;
-using Misc;
+using Util;
 using System;
 using Logger = Logging.Logger;
 
@@ -55,8 +55,8 @@ namespace Performance
 		/// This method determines if any of the calculated distances exceed their maximum allowed distance, 
 		/// and if any of the calculated rotation errors exceed their maximum allowed error.
 		/// </summary>
-		/// <param name="posError"> The calculcated distances between the student and the ghost's hands. </param>
-		/// <param name="rotError"> The calculcated error between the student and the ghost's hand rotations. </param>
+		/// <param name="posError"> The calculated distances between the student and the ghost's hands. </param>
+		/// <param name="rotError"> The calculated error between the student and the ghost's hand rotations. </param>
 		/// <returns> True if any of the distances exceeds the maximum allowed distance. False otherwise. </returns>
 		private static bool DistanceOrRotExceedsMaxErrors(Vector3 posError, float rotError)
 		{

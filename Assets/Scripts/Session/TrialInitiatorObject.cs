@@ -14,17 +14,17 @@ namespace Sessions
 		{
 			// Check which object collided with the trial initiator object.
 			// TODO: Set the hand's tags to Right and Left.
-			var collider = 0;
-			if (other.gameObject.tag == "Right")
+			var colliderIndex = 0;
+			if (other.gameObject.CompareTag("Right"))
 			{
-				collider = 1;
+				colliderIndex = 1;
 			}
-			else if (other.gameObject.tag != "Left")
+			else if (!other.gameObject.CompareTag("Left"))
 			{
-				collider = 2;
+				colliderIndex = 2;
 			}
 
-			trialInitiator.SetFlag(true, this, collider);
+			trialInitiator.SetFlag(true, this, colliderIndex);
 		}
 
 		/// <summary>
@@ -34,17 +34,17 @@ namespace Sessions
 		private void OnTriggerExit(Collider other)
 		{
 			// Check which object collided with the trial initiator object.
-			var collider = 0;
-			if (other.gameObject.tag == "Right")
+			var colliderIndex = 0;
+			if (other.gameObject.CompareTag("Right"))
 			{
-				collider = 1;
+				colliderIndex = 1;
 			}
-			else if (other.gameObject.tag != "Left")
+			else if (!other.gameObject.CompareTag("Left"))
 			{
-				collider = 2;
+				colliderIndex = 2;
 			}
 
-			trialInitiator.SetFlag(false, this, collider);
+			trialInitiator.SetFlag(false, this, colliderIndex);
 		}
 
 	}

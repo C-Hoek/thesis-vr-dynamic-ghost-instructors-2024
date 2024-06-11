@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System;
+using Util;
 using Logger = Logging.Logger;
 
 namespace Performance
@@ -76,7 +77,8 @@ namespace Performance
 		private float CalculateTaskPerformance(List<float> errors)
 		{
 			var sum = errors.Sum();
-			return sum / 15;
+			var scaler = 100 / errors.Count;
+			return sum * scaler;
 		}
 
 		/// <summary>
@@ -87,7 +89,7 @@ namespace Performance
 		{
 			var errors = _taskErrors.Where(x => x.Item2 < _completionTime).ToList();
 			
-			var logString = $"Statistics{Logger.Delimiter}{_trialStatistics}{Logger.Delimiter}Obtained From{Logger.Delimiter}{errors}";
+			var logString = $"Statistics{Logger.Delimiter}{_trialStatistics}{Logger.Delimiter}Obtained From{Logger.Delimiter}{Utils.LogList(errors)}";
 			return logString;
 		}
 	}

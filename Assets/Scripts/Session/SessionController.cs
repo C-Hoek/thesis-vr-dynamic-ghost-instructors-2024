@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Config;
 using GameEntities;
@@ -6,6 +7,7 @@ using Task;
 using TransparencySettings;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Util;
 using Logger = Logging.Logger;
 
 namespace Sessions
@@ -37,6 +39,11 @@ namespace Sessions
 		}
 		private ITransparencySetting _transparencySetting;
 
+		public static string TrialID
+		{
+			get => $"{s_session.SessionID}_{s_trialIndex}";
+		}
+
 		// Session-related Game Objects.
 		private static Logger s_logger;
 		public static Logger Logger
@@ -51,13 +58,15 @@ namespace Sessions
 		private Student _student;
 
 		// Variables used to keep track of the session state.
-		private int _trialIndex = 0;
+		private static int s_trialIndex = 0;
 		private bool _started;
+		//TODO: Remove this once stuff auto-runs
 		public bool _startNextTrialCaller;
 		private bool _infoLogged;
 
 		private List<TrialPerformance> _trialPerformances = new List<TrialPerformance>();
 
+		//TODO: Remove this once it auto-runs
 		public void Update()
 		{
 			if (!_startNextTrialCaller) return;
@@ -97,7 +106,7 @@ namespace Sessions
 			if (!_started) return;
 			if (!_infoLogged)
 			{
-				Logger?.LogTrialInfo(_trialIndex, _config);
+				Logger?.LogTrialInfo(s_trialIndex, _config);
 				_infoLogged = Logger is not null;
 			}
 
@@ -108,16 +117,17 @@ namespace Sessions
 
 			// Obtain the combined position and rotation error and set the ghost's transparency to the appropriate amount.
 			var time = TimeController.CurrentTime;
+			//TODO: Set the transforms to the hands
 			var error = ErrorCalculation.CalculateError(_student.GetTransform(), _ghost.GetTransform());
 			Logger?.Log(ErrorCalculation.LogError(_student.transform, _ghost.transform, error));
-			_ghost.SetTransparency(_transparencySetting.TargetGhostTransparency(error, _trialIndex));
+			_ghost.SetTransparency(_transparencySetting.TargetGhostTransparency(error, s_trialIndex));
 			
 			// Set the ghost avatar's hand position to the appropriate task position.
 			s_session.Task.SetGhostPosition(_ghost, time);
 
 			// Add the error to the trial performance.
 			_trialPerformances ??= new List<TrialPerformance>();
-			_trialPerformances[_trialIndex].AddTaskError(error, time);
+			_trialPerformances[s_trialIndex].AddTaskError(error, time);
 		}
 
 		/// <summary>
@@ -140,7 +150,8 @@ namespace Sessions
 				_config.numTestTrials,
 				_config.timeLimit,
 				new TaskHolder(),
-				new TransparencyInfo(_config.minTransparency, _config.baseTransparency, _config.maxTransparency, _config.errorThreshold));
+				new TransparencyInfo(_config.minTransparency, _config.baseTransparency, _config.maxTransparency, _config.errorThreshold),
+				Guid.NewGuid().ToString());
 			
 			// Set up the transparency settings through the config object.
 			_transparencySetting = ITransparencySetting.SelectTransparencySetting(_config.transparencyType);
@@ -163,8 +174,8 @@ namespace Sessions
 		{
 			if (!_started) return;
 			Logger.Log($"Trial Complete Within Time Limit{Logger.Delimiter}{timeExpired}");
-			_trialPerformances[_trialIndex].CalculateTrialStatistics(_student.BaselinePerformance, TimeController.CurrentTime, timeExpired);
-			Logger.Log(_trialPerformances[_trialIndex].LogPerformance());
+			_trialPerformances[s_trialIndex].CalculateTrialStatistics(_student.BaselinePerformance, TimeController.CurrentTime, timeExpired);
+			Logger.Log(_trialPerformances[s_trialIndex].LogPerformance());
 			LoadTrial();
 		}
 
@@ -173,7 +184,7 @@ namespace Sessions
 		/// It also logs the full trial performance array.
 		/// </summary>
 		private void CompleteSession() {
-			
+			Logger.Log($"Trial Performance{Utils.LogList(_trialPerformances)}");
 		}
 
 		/// <summary>
@@ -184,14 +195,14 @@ namespace Sessions
 			_started = false;
 			
 			// Load the menu if the session is complete.
-			if (s_session.IsComplete(_trialIndex))
+			if (s_session.IsComplete(s_trialIndex))
 			{
 				CompleteSession();
 				SceneManager.LoadScene("Menu");
 			}
 			
 			// Load the next trial of the session.
-			_trialIndex += 1;
+			s_trialIndex += 1;
 			_trialPerformances.Add(new TrialPerformance());
 			SceneManager.LoadScene("TestEnvironment");
 

@@ -20,7 +20,7 @@ namespace TransparencySettings
 			var transparencyModifier = ComputeTransparencyModifier(calculatedError, transparencyInfo.ErrorThreshold);
 
 			// Minimum transparency + modifier * (maximum - minimum transparency)
-			return minTransparency + transparencyModifier * (minTransparency - maxTransparency);
+			return minTransparency + transparencyModifier * (maxTransparency - minTransparency);
 		}
 
 		/// <summary>
@@ -29,7 +29,7 @@ namespace TransparencySettings
 		/// <param name="calculatedError"> The error value when comparing the student with the Ghost avatar. This should be between 0.0f and 1.0f. </param>
 		/// <param name="errorThreshold"> The error threshold above which the Ghost avatar should be visible to some extent. </param>
 		/// <returns> A value between 0 and 1. Where 1 denotes completely visible, and 0 denotes completely invisible. </returns>
-		public float ComputeTransparencyModifier(float calculatedError, float errorThreshold)
+		private static float ComputeTransparencyModifier(float calculatedError, float errorThreshold)
 		{
 			if (calculatedError <= errorThreshold) return 0.0f;
 
@@ -38,7 +38,7 @@ namespace TransparencySettings
 			var exponentialError = Math.Exp(calculatedError);
 
 			// The modifier should remain capped at 1.0f.
-			return (float) exponentialError / (float) Math.E;
+			return ((float) exponentialError - 1.0f) / (float) Math.E;
 		}
 	}
 }

@@ -1,8 +1,8 @@
 using Sessions;
-using System;
 using System.IO;
 using Config;
 using UnityEngine;
+using Util;
 
 namespace Logging
 {
@@ -21,7 +21,7 @@ namespace Logging
 		/// </summary>
 		public void Start()
 		{
-			var path = Application.persistentDataPath + "/Logs/" + DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss") +
+			var path = Application.persistentDataPath + "/Logs/" + SessionController.TrialID +
 					   ".log";
 			Directory.CreateDirectory(Path.GetDirectoryName(path));
 			_file = new StreamWriter(path, true);
@@ -50,8 +50,8 @@ namespace Logging
 				$"#TestTrials{Delimiter} {config.numTestTrials}\n" +
 				$"Time Limit{Delimiter} {config.timeLimit}\n" +
 				$"Base Transparency{Delimiter} {config.baseTransparency}\n" +
-				$"Min Transparency{Delimiter} {config.minTransparency}\n" +
-				$"Max Transparency{Delimiter} {config.maxTransparency}\n" +
+				$"Min Transparency{Delimiter} {Utils.LogList(config.minTransparency)}\n" +
+				$"Max Transparency{Delimiter} {Utils.LogList(config.maxTransparency)}\n" +
 				$"Error Threshold{Delimiter} {config.errorThreshold}\n" +
 				"===============================================================================";
 			Log(logString);

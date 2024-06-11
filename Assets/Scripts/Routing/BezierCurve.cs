@@ -119,7 +119,8 @@ namespace Routing
 			distList.Add(0);
 			for (var i = 1; i < NumApproximationPoints; i++)
 			{
-				var dist = Vector3.Distance(PosAt((i - 1) / 100f), PosAt(i / 100f));
+				// TODO: This was divided by 100f before; make sure this is correct.
+				var dist = Vector3.Distance(PosAt((i - 1) / (float) NumApproximationPoints), PosAt(i / (float) NumApproximationPoints));
 				distList.Add(dist);
 			}
 
@@ -128,12 +129,6 @@ namespace Routing
 
 			// Determine the fraction of the total length per segment.
 			_segmentFractions = distList.Select(x => x / _arcLength).ToList();
-
-			var j = 1;
-			while (j < NumApproximationPoints)
-			{
-				j++;
-			}
 		}
 	}
 }

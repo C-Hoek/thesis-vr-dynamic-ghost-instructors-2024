@@ -1,5 +1,4 @@
 using UnityEngine;
-using Sessions;
 
 namespace Sessions
 {

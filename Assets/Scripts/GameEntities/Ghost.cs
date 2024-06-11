@@ -18,8 +18,8 @@ namespace GameEntities
 			if (ghostAvatar is null) return;
 
 			// Log the position and transparency of the ghost avatar.
-			// LogPosition();
-			// LogTransparency();
+			LogPosition();
+			LogTransparency();
 		}
 
 		/// <summary>
