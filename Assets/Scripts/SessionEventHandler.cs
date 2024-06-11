@@ -19,6 +19,19 @@ namespace Sessions
 		{
 			OnStartNextTrial?.Invoke();
 		}
+		
+		/// <summary>
+		/// This event is called when the ghost instructor reaches the end of its path.
+		/// </summary>
+		public event Action OnPathComplete;
+
+		/// <summary>
+		/// This event is called when the ghost instructor reaches the end of its path.
+		/// </summary>
+		public void PathComplete()
+		{
+			OnPathComplete?.Invoke();
+		}
 
 		/// <summary>
 		/// This event is called when a trial completes.

@@ -8,6 +8,7 @@ namespace Routing
 	public class BezierPath : MonoBehaviour
 	{
 		[SerializeField] private List<BezierCurve> path;
+		private bool _finished;
 
 		/// <summary>
 		/// This method returns the point that occurs in the path at this point in time.
@@ -17,7 +18,15 @@ namespace Routing
 		public Vector3 PositionAt(float t)
 		{
 			var time = SessionController.Session.TimeToCompletePath;
-			if (t > time) return path[path.Count - 1].PositionAt(1);
+			if (t > time)
+			{
+				if (!_finished)
+				{
+					SessionEventHandler.Instance.PathComplete();
+					_finished = true;
+				}
+				return path[path.Count - 1].PositionAt(1);
+			}
 			
 			// Find the target curve
 			var arcLengths = path.Select(x => x.ArcLength).ToList();

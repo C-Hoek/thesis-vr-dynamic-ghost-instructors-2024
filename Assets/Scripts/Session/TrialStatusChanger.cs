@@ -3,10 +3,11 @@ using UnityEngine;
 
 namespace Sessions
 {
-	public class TrialInitiator : MonoBehaviour
+	public class TrialStatusChanger : MonoBehaviour
 	{
-		[SerializeField] private TrialInitiatorObject leftCube;
-		[SerializeField] private TrialInitiatorObject rightCube;
+		[SerializeField] private TrialStatusChangerObject leftCube;
+		[SerializeField] private TrialStatusChangerObject rightCube;
+		[SerializeField] private TrialStatusChangerObject endCube;
 		[SerializeField] private TextMeshProUGUI initiationText;
 
 		private const int HoldTime = 2;
@@ -15,6 +16,31 @@ namespace Sessions
 		private bool _leftFilled;
 		private bool _rightFilled;
 
+		private bool _trialStarted;
+		
+		/// <summary>
+		/// This method subscribes to the OnPathComplete event.
+		/// </summary>
+		private void OnEnable()
+		{
+			SessionEventHandler.Instance.OnPathComplete += ActivateEndCube;
+		}
+		
+		/// <summary>
+		/// This method unsubscribes from the OnPathComplete event.
+		/// </summary>
+		private void OnDisable()
+		{
+			SessionEventHandler.Instance.OnPathComplete -= ActivateEndCube;
+		}
+
+		/// <summary>
+		/// Activate the end cube.
+		/// </summary>
+		private void ActivateEndCube()
+		{
+			endCube.gameObject.SetActive(true);
+		}
 
 		/// <summary>
 		/// This method keeps track of how long the user has held their hands in the right point in space.
@@ -23,7 +49,8 @@ namespace Sessions
 		private void Update()
 		{
 			// Once the user holds for longer or equal to the hold time, start the trial.
-			if (_heldTimer >= HoldTime) RemoveCubes();
+			if (_heldTimer >= HoldTime && !_trialStarted) RemoveCubes();
+			else if (_heldTimer >= HoldTime) SessionEventHandler.Instance.CompleteTrial();
 
 			// Increment the timer.
 			if (_leftFilled && _rightFilled)
@@ -45,8 +72,16 @@ namespace Sessions
 		/// <param name="cube"> The trial initiator object in question. </param>
 		/// <param name="collider"> An integer that determines what collided with the trial initiator object. This is 0 if it was the left hand, 
 		/// 1 if it was the right hand, and 2 if it was any other object. </param>
-		public void SetFlag(bool isFilled, TrialInitiatorObject cube, int collider)
+		public void SetFlag(bool isFilled, TrialStatusChangerObject cube, int collider)
 		{
+			if (cube == endCube)
+			{
+				_leftFilled = true;
+				_rightFilled = true;
+			}
+			
+			// If the trial has started, the start cubes have been destroyed. Return if this is the case.
+			if (_trialStarted) return;
 			if (cube == leftCube && collider == 0) _leftFilled = isFilled;
 			else if (cube == rightCube && collider == 1) _rightFilled = isFilled;
 		}
@@ -58,9 +93,12 @@ namespace Sessions
 		{
 			initiationText.text = "";
 
-			// Start the next trial.
 			SessionEventHandler.Instance.StartNextTrial();
-			Destroy(this);
+			
+			Destroy(leftCube);
+			Destroy(rightCube);
+			_leftFilled = false;
+			_rightFilled = false;
 		}
 	}
 

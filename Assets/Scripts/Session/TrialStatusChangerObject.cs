@@ -2,9 +2,9 @@ using UnityEngine;
 
 namespace Sessions
 {
-	public class TrialInitiatorObject : MonoBehaviour
+	public class TrialStatusChangerObject : MonoBehaviour
 	{
-		[SerializeField] private TrialInitiator trialInitiator;
+		[SerializeField] private TrialStatusChanger trialStatusChanger;
 
 		/// <summary>
 		/// This method is triggered when a collider enters the trial initiator object.
@@ -23,7 +23,7 @@ namespace Sessions
 				colliderIndex = 2;
 			}
 
-			trialInitiator.SetFlag(true, this, colliderIndex);
+			trialStatusChanger.SetFlag(true, this, colliderIndex);
 		}
 
 		/// <summary>
@@ -43,8 +43,7 @@ namespace Sessions
 				colliderIndex = 2;
 			}
 
-			trialInitiator.SetFlag(false, this, colliderIndex);
+			trialStatusChanger.SetFlag(false, this, colliderIndex);
 		}
-
 	}
 }

@@ -58,21 +58,12 @@ namespace Sessions
 		private Student _student;
 
 		// Variables used to keep track of the session state.
-		private static int s_trialIndex = 0;
+		private static int s_trialIndex = -1;
 		private bool _started;
-		//TODO: Remove this once stuff auto-runs
-		public bool _startNextTrialCaller;
+		private bool _completed;
 		private bool _infoLogged;
 
 		private List<TrialPerformance> _trialPerformances = new List<TrialPerformance>();
-
-		//TODO: Remove this once it auto-runs
-		public void Update()
-		{
-			if (!_startNextTrialCaller) return;
-			_startNextTrialCaller = false;
-			SessionEventHandler.Instance.StartNextTrial();
-		}
 		
 		/// <summary>
 		/// This method subscribes to the OnStartNextTrial event.
@@ -127,6 +118,7 @@ namespace Sessions
 
 			// Add the error to the trial performance.
 			_trialPerformances ??= new List<TrialPerformance>();
+			_trialPerformances.Add(new TrialPerformance());
 			_trialPerformances[s_trialIndex].AddTaskError(error, time);
 		}
 
@@ -173,7 +165,9 @@ namespace Sessions
 		/// </summary>
 		private void CompleteTrial(bool timeExpired)
 		{
-			if (!_started) return;
+			if (!_started || _completed) return;
+			
+			_completed = true;
 			Logger.Log($"Trial Complete Within Time Limit{Logger.Delimiter}{timeExpired}");
 			_trialPerformances[s_trialIndex].CalculateTrialStatistics(_student.BaselinePerformance, TimeController.CurrentTime, timeExpired);
 			Logger.Log(_trialPerformances[s_trialIndex].LogPerformance());
