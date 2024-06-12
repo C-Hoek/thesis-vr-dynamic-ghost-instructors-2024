@@ -11,7 +11,7 @@ namespace Sessions
 		[SerializeField] private TextMeshProUGUI initiationText;
 
 		private const int HoldTime = 2;
-		private const float EndHoldTime = 1.5f;
+		private const float EndHoldTime = 0.5f;
 		private float _heldTimer;
 
 		private bool _leftFilled;
