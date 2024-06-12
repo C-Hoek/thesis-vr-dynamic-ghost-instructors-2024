@@ -2455,13 +2455,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 634720218}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.115842566, y: -0.8457382, z: -0.35762554, w: 0.3786969}
+  m_LocalRotation: {x: -0.39232543, y: 0.58561605, z: 0.5949695, w: -0.38619423}
   m_LocalPosition: {x: -0.0046, y: -0.0558, z: -0.108}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 284463580}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 122.3, y: 125.669, z: 54.412}
 --- !u!65 &634720220
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2681,7 +2681,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 742599250}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.15366513, y: 0.85356677, z: 0.32196057, w: 0.37967375}
+  m_LocalRotation: {x: 0.37488437, y: 0.68699104, z: 0.5565152, w: 0.27891907}
   m_LocalPosition: {x: -0.0007, y: -0.0558, z: -0.1082}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -4196,7 +4196,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2fadf230d1919748a9aa21d40f74619, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_TrackingType: 0
+  m_TrackingType: 1
   m_UpdateType: 0
   m_IgnoreTrackingState: 0
   m_PositionInput:
@@ -4434,7 +4434,7 @@ MonoBehaviour:
   m_Camera: {fileID: 1932285547}
   m_OriginBaseGameObject: {fileID: 1996493443}
   m_CameraFloorOffsetObject: {fileID: 893131458}
-  m_RequestedTrackingOriginMode: 0
+  m_RequestedTrackingOriginMode: 1
   m_CameraYOffset: 1.2
 --- !u!4 &1996493446
 Transform:
