@@ -1,17 +1,11 @@
 using UnityEngine;
 using Util;
-using System;
 using Logger = Logging.Logger;
 
 namespace Performance
 {
 	public class ErrorCalculation
 	{
-		// TODO: Finetune error calculation.
-
-		// Attribute that determine the relative weight of the distance in the context of the full error. The rotation error weight is equal to 1 - DistWeight.
-		private const float DistWeight = 0.8f;
-
 		// Attributes that determine how important the axis of the position is in the context of the full error calculation.
 		private const float XPosW = 1f;
 		private const float YPosW = 1f;
@@ -22,32 +16,27 @@ namespace Performance
 		private const float YMaxPosError = 0.3f;
 		private const float ZMaxPosError = 1f;
 
-		// Attributes that determine what the maximum allowed rotation error is in each direction.
-		private const float MaxRotError = Mathf.PI / 2;
-
 		/// <summary>
 		/// This method calculates the error between the movements of the student and those of the Ghost.
 		/// </summary>
-		/// <param name="student"> The transform including the position and rotation of the student's hand. </param>
-		/// <param name="ghost"> The transform including the position and rotation of the ghost's hand. </param>
+		/// <param name="studentPointer"> The position of the student's pointer. </param>
+		/// <param name="ghostPointer"> The position of the ghost's pointer. </param>
 		/// <returns> A number between 0 and 1. </returns>
-		public static float CalculateError(Transform student, Transform ghost)
+		public static float CalculateError(Vector3 studentPointer, Vector3 ghostPointer)
 		{
 			// TODO: Should going faster be allowed? I kind of want the ghost to speed up to prevent the student getting ahead.
 			// Should this take into account previous positions since the student is likely _following_ the ghost???
-			var posError = Utils.Vector3Abs(ghost.position - student.position);
-			var rotError = Math.Abs(Quaternion.Angle(ghost.rotation, student.rotation));
+			var posError = Utils.Vector3Abs(ghostPointer - studentPointer);
 
 			// If the distance between the student and the teacher exceeds the maximum distance in any direction, return the maximum error.
-			if (DistanceOrRotExceedsMaxErrors(posError, rotError)) return 1.0f;	
+			if (DistanceOrRotExceedsMaxErrors(posError)) return 1.0f;	
 
 			// Add weight scaling and max error scaling to ensure that the maximum error will be equal to 1.0f, and a minimum of 0.0f.
 			var scaledPosError = new Vector3 (posError.x / XMaxPosError, posError.y / YMaxPosError, posError.z / ZMaxPosError);			
-			var distanceError =  (XPosW * scaledPosError.x + YPosW * scaledPosError.y + ZPosW * scaledPosError.z) / (XPosW + YPosW + ZPosW);			
-			var error = DistWeight * distanceError + (1 - DistWeight) * rotError;
+			var distanceError =  (XPosW * scaledPosError.x + YPosW * scaledPosError.y + ZPosW * scaledPosError.z) / (XPosW + YPosW + ZPosW);
+			var error = distanceError;
 
 			// Log and return the error.
-			LogError(student, ghost, error);
 			return error;
 		}
 
@@ -56,26 +45,24 @@ namespace Performance
 		/// and if any of the calculated rotation errors exceed their maximum allowed error.
 		/// </summary>
 		/// <param name="posError"> The calculated distances between the student and the ghost's hands. </param>
-		/// <param name="rotError"> The calculated error between the student and the ghost's hand rotations. </param>
 		/// <returns> True if any of the distances exceeds the maximum allowed distance. False otherwise. </returns>
-		private static bool DistanceOrRotExceedsMaxErrors(Vector3 posError, float rotError)
+		private static bool DistanceOrRotExceedsMaxErrors(Vector3 posError)
 		{
-			var posExceeds = posError.x > XMaxPosError || posError.y > YMaxPosError || posError.z > ZMaxPosError;
-			var rotExceeds = rotError > MaxRotError;
-			return posExceeds | rotExceeds;
+			Debug.Log("Exceed max?: " + (posError.x > XMaxPosError || posError.y > YMaxPosError || posError.z > ZMaxPosError));
+			return posError.x > XMaxPosError || posError.y > YMaxPosError || posError.z > ZMaxPosError;
 		}
 
 		/// <summary>
 		/// This method logs the error to the log file.
 		/// </summary>
-		/// <param name="student"> The student avatar's transform. </param>
-		/// <param name="ghost"> The ghost avatar's transform. </param>
+		/// <param name="student"> The student's pointer location. </param>
+		/// <param name="ghost"> The ghost avatar's pointer location. </param>
 		/// <param name="error"> The calculated error. </param>
 		/// <returns> Returns a string containing the useful properties of the two transforms, and the calculated error. </returns>
-		public static string LogError(Transform student, Transform ghost, float error) {
+		public static string LogError(Vector3 student, Vector3 ghost, float error) {
 			var logString = $"Error{Logger.Delimiter}{error}{Logger.Delimiter}" +
-							$"Student Position{Logger.Delimiter}{student.position}{Logger.Delimiter}Student Rotation{Logger.Delimiter}{student.rotation}" +
-							$"Ghost Position{Logger.Delimiter}{ghost.position}{Logger.Delimiter}Ghost Rotation{Logger.Delimiter}{ghost.rotation}";
+							$"Student Position{Logger.Delimiter}{student}{Logger.Delimiter}" +
+							$"Ghost Position{Logger.Delimiter}{ghost}";
 			return logString;
 		}
 	}

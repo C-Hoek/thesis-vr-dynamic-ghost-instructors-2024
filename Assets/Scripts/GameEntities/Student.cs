@@ -37,11 +37,11 @@ namespace GameEntities
 		}
 
 		/// <summary>
-		/// This method returns the transform of the student avatar's pointer hand.
+		/// This method returns the position of the pointer (end of the index finger).
 		/// </summary>
-		/// <returns> The transform of the student avatar's pointer hand. </returns>
-		public Transform GetTransform() {
-			return handBone.transform;
+		/// <returns> The position of the student avatar's pointer. </returns>
+		public Vector3 GetPointerPosition() {
+			return handBone.transform.position + _handToPointerOffset;
 		}
 
 		/// <summary>

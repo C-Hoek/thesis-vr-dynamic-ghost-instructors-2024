@@ -114,8 +114,8 @@ namespace Sessions
 			// Obtain the combined position and rotation error and set the ghost's transparency to the appropriate amount.
 			var time = TimeController.CurrentTime;
 			//TODO: Set the transforms to the hands
-			var error = ErrorCalculation.CalculateError(_student.GetTransform(), _ghost.GetTransform());
-			Logger?.Log(ErrorCalculation.LogError(_student.transform, _ghost.transform, error));
+			var error = ErrorCalculation.CalculateError(_student.GetPointerPosition(), _ghost.GetPointerPosition());
+			Logger?.Log(ErrorCalculation.LogError(_student.GetPointerPosition(), _ghost.GetPointerPosition(), error));
 			_ghost.SetTransparency(_transparencySetting.TargetGhostTransparency(error, s_trialIndex));
 			
 			// Set the ghost avatar's hand position to the appropriate task position.
