@@ -7,7 +7,6 @@ namespace GameEntities
 		public Vector3 characterCameraOffset;
 		
 		public Transform cameraHeadTarget;
-		public Transform ikHeadTarget;
 
 		private const float RotationSpeed = 10f;
 		
@@ -26,7 +25,7 @@ namespace GameEntities
 		}
 		
 		/// <summary>
-		/// This method aligns the IK targets with the HMD and controllers.
+		/// This method aligns the IK targets with the controllers.
 		/// </summary>
 		public void LateUpdate()
 		{
@@ -35,14 +34,9 @@ namespace GameEntities
 			// Also don't move the arms beyond this for a similar reason.
 			if (yRotation is > 90 and < 270f)
 			{
-				ikHeadTarget.position = cameraHeadTarget.position;
 				return;
 			}
 			transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(transform.eulerAngles.x, yRotation, transform.eulerAngles.z), Time.deltaTime * RotationSpeed);
-			
-			// Align the head with the camera/HMD.
-			ikHeadTarget.position = cameraHeadTarget.position;
-			ikHeadTarget.rotation = cameraHeadTarget.rotation;
 			
 			// Align the arms with their controllers.
 			SetArmTransform();
