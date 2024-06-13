@@ -11,7 +11,7 @@ namespace GameEntities
 		[SerializeField] private GameObject handBone;
 		
 		public Vector3 characterCameraOffset;
-		private readonly Vector3 _handToPointerOffset = new Vector3(0.0155999996f, 0.172999993f, 0.0188999996f);
+		[SerializeField] private Transform pointerBone;
 		
 		[SerializeField] private Material ghostMaterial;
 
@@ -49,7 +49,11 @@ namespace GameEntities
 		/// <param name="position"> The target position of the ghost. </param>
 		public void SetPosition(Vector3 position)
 		{
-			handTarget.transform.position = position - _handToPointerOffset;
+			// 1. Get the position from the Bézier curve
+			// 2. Get the distance between the finger bone & the target
+			// 3. Move the target by this offset
+			var offset = pointerBone.transform.position - position;
+			handTarget.transform.position -= offset;
 		}
 
 		/// <summary>
@@ -73,7 +77,7 @@ namespace GameEntities
 		/// </summary>
 		/// <returns> The position of the ghost avatar's pointer. </returns>
 		public Vector3 GetPointerPosition() {
-			return handBone.transform.position + _handToPointerOffset;
+			return pointerBone.transform.position;
 		}
 
 		/// <summary>
@@ -82,7 +86,7 @@ namespace GameEntities
 		private void LogPosition()
 		{
 			var logString = $"Ghost Hand Position{Logger.Delimiter}{handBone.transform.position}{Logger.Delimiter}" +
-				$"Ghost Hand Pointer Position{Logger.Delimiter}{handBone.transform.position + _handToPointerOffset}{Logger.Delimiter}" +
+				$"Ghost Hand Pointer Position{Logger.Delimiter}{pointerBone.transform.position}{Logger.Delimiter}" +
 				$"Ghost Hand Target Position{Logger.Delimiter}{handTarget.transform.position}";
 			SessionController.Logger.Log(logString);
 		}

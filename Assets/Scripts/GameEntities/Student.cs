@@ -10,7 +10,7 @@ namespace GameEntities
 		[SerializeField] private Transform handBone;
 		[SerializeField] private Transform headTarget;
 
-		private Vector3 _handToPointerOffset = new Vector3(0.0155999996f, 0.172999993f, 0.0188999996f);
+		[SerializeField] private Transform pointerBone;
 
 		private float? _baselinePerformance;
 		public float? BaselinePerformance {
@@ -41,7 +41,7 @@ namespace GameEntities
 		/// </summary>
 		/// <returns> The position of the student avatar's pointer. </returns>
 		public Vector3 GetPointerPosition() {
-			return handBone.transform.position + _handToPointerOffset;
+			return pointerBone.transform.position;
 		}
 
 		/// <summary>
@@ -50,7 +50,7 @@ namespace GameEntities
 		private void LogPosition()
 		{
 			var logString = $"Student Hand Position{Logger.Delimiter}{handBone.transform.position}{Logger.Delimiter}" +
-				$"Student Hand Pointer Position{Logger.Delimiter}{handBone.transform.position + _handToPointerOffset}" +
+				$"Student Hand Pointer Position{Logger.Delimiter}{pointerBone.transform.position}{Logger.Delimiter}" +
 				$"Student Head Position{Logger.Delimiter}{headTarget.transform.position}{Logger.Delimiter}Student Head Rotation{Logger.Delimiter}{headTarget.transform.rotation}";
 			SessionController.Logger.Log(logString);
 		}
