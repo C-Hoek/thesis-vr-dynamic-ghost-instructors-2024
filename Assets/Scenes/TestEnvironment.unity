@@ -2110,37 +2110,6 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 1
---- !u!1 &454259492
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 454259493}
-  m_Layer: 0
-  m_Name: GameObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &454259493
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 454259492}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.1382, z: 0.056711}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 3939582559609976824}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &480323836
 GameObject:
   m_ObjectHideFlags: 0
@@ -2455,7 +2424,7 @@ Transform:
   m_GameObject: {fileID: 601745445}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.081, y: 0.42690003, z: -1.9089}
+  m_LocalPosition: {x: 0.041686147, y: 0.5463176, z: -2.049249}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4440,6 +4409,46 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2642279919493711445, guid: 89604011cd13f08489037ba0ecb83f56,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.45781374
+      objectReference: {fileID: 0}
+    - target: {fileID: 2642279919493711445, guid: 89604011cd13f08489037ba0ecb83f56,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.87778336
+      objectReference: {fileID: 0}
+    - target: {fileID: 2642279919493711445, guid: 89604011cd13f08489037ba0ecb83f56,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.14824247
+      objectReference: {fileID: 0}
+    - target: {fileID: 2642279919493711445, guid: 89604011cd13f08489037ba0ecb83f56,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -0.7569903
+      objectReference: {fileID: 0}
+    - target: {fileID: 2642279919493711445, guid: 89604011cd13f08489037ba0ecb83f56,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.30608833
+      objectReference: {fileID: 0}
+    - target: {fileID: 2642279919493711445, guid: 89604011cd13f08489037ba0ecb83f56,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.43222475
+      objectReference: {fileID: 0}
+    - target: {fileID: 2642279919493711445, guid: 89604011cd13f08489037ba0ecb83f56,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.38269755
+      objectReference: {fileID: 0}
+    - target: {fileID: 4464862180634380286, guid: 89604011cd13f08489037ba0ecb83f56,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4912190187851696187, guid: 89604011cd13f08489037ba0ecb83f56,
         type: 3}
       propertyPath: m_Name
@@ -4502,19 +4511,9 @@ PrefabInstance:
       objectReference: {fileID: 3939582559609976825}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 2642279919493711445, guid: 89604011cd13f08489037ba0ecb83f56,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 454259493}
+    m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 89604011cd13f08489037ba0ecb83f56, type: 3}
---- !u!4 &3939582559609976824 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2642279919493711445, guid: 89604011cd13f08489037ba0ecb83f56,
-    type: 3}
-  m_PrefabInstance: {fileID: 3939582559609976823}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &3939582559609976825 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3345319752098284621, guid: 89604011cd13f08489037ba0ecb83f56,

@@ -12,6 +12,8 @@ namespace GameEntities
 		
 		public Vector3 characterCameraOffset;
 		[SerializeField] private Transform pointerBone;
+
+		[SerializeField] private Vector3 startPosition;
 		
 		[SerializeField] private Material ghostMaterial;
 
@@ -52,8 +54,8 @@ namespace GameEntities
 			// 1. Get the position from the Bézier curve
 			// 2. Get the distance between the finger bone & the target
 			// 3. Move the target by this offset
-			var offset = pointerBone.transform.position - position;
-			handTarget.transform.position -= offset;
+			var offset = position - pointerBone.transform.position;
+			handTarget.transform.position += offset;
 		}
 
 		/// <summary>
