@@ -8,6 +8,7 @@ namespace GameEntities
 	{
 		[SerializeField] private HandAnimationController animationController;
 		[SerializeField] private Transform handBone;
+		[SerializeField] private Transform handTarget;
 		[SerializeField] private Transform headTarget;
 
 		[SerializeField] private Transform pointerBone;
@@ -50,8 +51,12 @@ namespace GameEntities
 		private void LogPosition()
 		{
 			var logString = $"Student Hand Position{Logger.Delimiter}{handBone.transform.position}{Logger.Delimiter}" +
+				$"Student Hand Rotation{Logger.Delimiter}{handBone.transform.rotation.eulerAngles}{Logger.Delimiter}" +
 				$"Student Hand Pointer Position{Logger.Delimiter}{pointerBone.transform.position}{Logger.Delimiter}" +
-				$"Student Head Position{Logger.Delimiter}{headTarget.transform.position}{Logger.Delimiter}Student Head Rotation{Logger.Delimiter}{headTarget.transform.rotation}";
+				$"Student Hand Target Position{Logger.Delimiter}{handTarget.transform.position}{Logger.Delimiter}" +
+				$"Student Hand Target Rotation{Logger.Delimiter}{handTarget.transform.rotation.eulerAngles}{Logger.Delimiter}" +
+				$"Student Head Position{Logger.Delimiter}{headTarget.transform.position}{Logger.Delimiter}" +
+				$"Student Head Rotation{Logger.Delimiter}{headTarget.transform.rotation.eulerAngles}";
 			SessionController.Logger.Log(logString);
 		}
 	}

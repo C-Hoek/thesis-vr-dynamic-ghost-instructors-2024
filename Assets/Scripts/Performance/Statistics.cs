@@ -1,11 +1,11 @@
 namespace Performance
 {
-	public record Statistics(float AverageDistanceToGhost, float MaxDistanceToGhost, float MinDistanceToGhost, float TimeToCompletion, bool Completed, 
+	public record Statistics(float AverageError, float MaxError, float MinError, float TimeToCompletion, bool Completed, 
 							 float TaskPerformance, float LearningEffect)
 	{
-		public float AverageDistanceToGhost { get; } = AverageDistanceToGhost;
-		public float MaxDistanceToGhost { get; } = MaxDistanceToGhost;
-		public float MinDistanceToGhost { get; } = MinDistanceToGhost;
+		public float AverageError { get; } = AverageError;
+		public float MaxError { get; } = MaxError;
+		public float MinError { get; } = MinError;
 
 		// Obtain completion statistics.
 		public float TimeToCompletion { get; } = TimeToCompletion;

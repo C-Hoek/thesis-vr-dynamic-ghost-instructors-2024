@@ -52,7 +52,6 @@ namespace Sessions
 				SessionEventHandler.Instance.CompleteTrial(timeExpired: true);
 				_trialFinished = true;
 			}
-			
 		}
 
 		/// <summary>

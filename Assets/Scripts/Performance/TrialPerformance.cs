@@ -43,9 +43,9 @@ namespace Performance
 			var errors = _taskErrors.Where(x => x.Item2 < completionTime).Select(x => x.Item1).ToList();
 
 			// Calculate distance values.
-			var averageDistanceToGhost = errors.Average();
-			var maxDistanceToGhost = errors.Max();
-			var minDistanceToGhost = errors.Min();
+			var averageError = errors.Average();
+			var maxError = errors.Max();
+			var minError = errors.Min();
 
 			// Obtain completion statistics.
 			var timeToCompletion = completionTime;
@@ -59,8 +59,7 @@ namespace Performance
 			_completionTime = completionTime;
 
 			// Combine all sub-statistics into a statistics object.
-			_trialStatistics = new Statistics(minDistanceToGhost, averageDistanceToGhost, maxDistanceToGhost, timeToCompletion,
-				completed, taskPerformance, learningEffect);
+			_trialStatistics = new Statistics(averageError, maxError, minError, timeToCompletion, completed, taskPerformance, learningEffect);
 		}
 
 		/// <summary>
