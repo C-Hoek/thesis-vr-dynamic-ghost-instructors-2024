@@ -15,7 +15,7 @@ namespace Task
 		
 		private bool _setupDone;
 
-		private Vector3 _taskPosition = new Vector3(0f, 0.161000013f + 0.602f, -93.4499969f + 90);
+		private Vector3 _taskPosition = new Vector3(0f, 0.662f, -3.39199996f);
 		public Vector3 TaskPosition
 		{
 			get => _taskPosition;

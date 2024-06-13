@@ -73,6 +73,7 @@ namespace Sessions
 		
 		private bool _completed;
 		private bool _infoLogged;
+		private bool _ghostPositionSet;
 
 		private List<TrialPerformance> _trialPerformances = new List<TrialPerformance>();
 		
@@ -98,6 +99,20 @@ namespace Sessions
 			
 			s_instance = this;
 			DontDestroyOnLoad(this);
+		}
+
+		// Make sure the ghost hand is in the right position to start the trial.
+		public void Update()
+		{
+			if (!_ghostPositionSet)
+			{
+				_ghost ??= FindObjectOfType<Ghost>();
+				if (_ghost is not null)
+				{
+					s_session.Task.SetGhostPosition(_ghost, 0f);
+					_ghostPositionSet = true;
+				}
+			}
 		}
 
 		/// <summary>
@@ -234,6 +249,7 @@ namespace Sessions
 			s_logger = null;
 			_student = null;
 			_ghost = null;
+			_ghostPositionSet = false;
 			_completed = false;
 		}
 	}

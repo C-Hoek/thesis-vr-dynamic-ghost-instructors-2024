@@ -9,11 +9,10 @@ namespace GameEntities
 		[SerializeField] private GameObject ghostAvatar;
 		[SerializeField] private GameObject handTarget;
 		[SerializeField] private GameObject handBone;
+		[SerializeField] private GameObject armBone;
 		
 		public Vector3 characterCameraOffset;
 		[SerializeField] private Transform pointerBone;
-
-		[SerializeField] private Vector3 startPosition;
 		
 		[SerializeField] private Material ghostMaterial;
 
@@ -23,6 +22,12 @@ namespace GameEntities
 		public void Awake()
 		{
 			transform.position += characterCameraOffset;
+		}
+
+		// This method ensures that the ghost instructor's hand will not be rotated in a disturbing way.
+		public void Update()
+		{
+			handTarget.transform.rotation = armBone.transform.rotation * Quaternion.Euler(0, 45.0f, 0);
 		}
 		
 		/// <summary>
@@ -54,8 +59,16 @@ namespace GameEntities
 			// 1. Get the position from the Bézier curve
 			// 2. Get the distance between the finger bone & the target
 			// 3. Move the target by this offset
-			var offset = position - pointerBone.transform.position;
-			handTarget.transform.position += offset;
+			//TODO: FIx this
+			
+			var idk = pointerBone.transform.position - handBone.transform.position;
+			var offset = position - idk;
+			
+			Debug.Log($"Target position: {position}, Initial hand pos: {handTarget.transform.position}, Initial Pointer Pos: {pointerBone.transform.position}");
+			Debug.Log($"Offset: {offset}, Pointer-HandBoneDiff: {idk}");
+			handTarget.transform.position += offset - transform.position;
+			Debug.Log($"Target position: {position}, New hand pos: {handTarget.transform.position}, New Pointer Pos: {pointerBone.transform.position}");
+
 		}
 
 		/// <summary>
