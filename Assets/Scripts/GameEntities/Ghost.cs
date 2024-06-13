@@ -59,16 +59,9 @@ namespace GameEntities
 			// 1. Get the position from the Bézier curve
 			// 2. Get the distance between the finger bone & the target
 			// 3. Move the target by this offset
-			//TODO: FIx this
-			
-			var idk = pointerBone.transform.position - handBone.transform.position;
-			var offset = position - idk;
-			
-			Debug.Log($"Target position: {position}, Initial hand pos: {handTarget.transform.position}, Initial Pointer Pos: {pointerBone.transform.position}");
-			Debug.Log($"Offset: {offset}, Pointer-HandBoneDiff: {idk}");
-			handTarget.transform.position += offset - transform.position;
-			Debug.Log($"Target position: {position}, New hand pos: {handTarget.transform.position}, New Pointer Pos: {pointerBone.transform.position}");
-
+			var indexHandOffset = pointerBone.transform.position - handBone.transform.position;
+			var target = position - indexHandOffset;
+			handTarget.transform.position = target;
 		}
 
 		/// <summary>
