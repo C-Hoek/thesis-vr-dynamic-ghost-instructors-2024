@@ -11,7 +11,13 @@ namespace Performance
 	{
 		// This list stores (errorValue, time).
 		private List<Tuple<float, float>> _taskErrors;
+		
 		private Statistics _trialStatistics;
+		public Statistics TrialStats
+		{
+			get => _trialStatistics;
+		}
+		
 		private float? _completionTime;
 		
 		/// <summary>
