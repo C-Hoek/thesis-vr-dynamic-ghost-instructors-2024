@@ -83,9 +83,7 @@ namespace Performance
 		private float CalculateTaskPerformance(List<float> errors)
 		{
 			var sum = errors.Sum();
-			var scaler = 100 / errors.Count;
-			Debug.Log($"{errors.Sum()}, {scaler}");
-			return 100 - (sum * scaler);
+			return 100 - (100 * sum / errors.Count);
 		}
 
 		/// <summary>
