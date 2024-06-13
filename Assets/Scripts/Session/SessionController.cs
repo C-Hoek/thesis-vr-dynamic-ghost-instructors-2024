@@ -57,6 +57,7 @@ namespace Sessions
 		}
 		private Ghost _ghost;
 		private Student _student;
+		private GameObject _taskObject;
 
 		// Variables used to keep track of the session state.
 		private static int s_trialIndex = -1;
@@ -205,6 +206,9 @@ namespace Sessions
 				_student.BaselinePerformance = _trialPerformances[s_trialIndex].TrialStats.TaskPerformance;
 			}
 			
+			// Destroy the old task object.
+			Destroy(_taskObject);
+			
 			LoadTrial();
 		}
 
@@ -239,11 +243,11 @@ namespace Sessions
 			SceneManager.LoadScene("TestEnvironment");
 
 			// Set up the task object.
-			var taskObj = Instantiate(s_session.Task.Setup(), transform, false);
-			var path = taskObj.GetComponentInChildren<BezierPath>();
+			_taskObject = Instantiate(s_session.Task.Setup(), transform, false);
+			var path = _taskObject.GetComponentInChildren<BezierPath>();
 			s_session.Task.Path = path;
 			// Set the task object to the appropriate place.
-			taskObj.transform.position = s_session.Task.TaskPosition;
+			_taskObject.transform.position = s_session.Task.TaskPosition;
 			
 			// Clear the logger, ghost, and student.
 			s_logger = null;
