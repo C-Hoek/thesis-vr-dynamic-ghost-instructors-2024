@@ -19,14 +19,5 @@ namespace Config
 		public float baseTransparency;
 		public List<float> maxTransparency;
 		public float errorThreshold;
-
-		/// <summary>
-		/// This method returns the log string.
-		/// </summary>
-		/// <returns> A string containing config information. </returns>
-		public string LogConfig()
-		{
-			return logString;
-		}
 	}
 }
