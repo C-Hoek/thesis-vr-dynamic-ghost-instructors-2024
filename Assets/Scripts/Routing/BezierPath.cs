@@ -19,7 +19,7 @@ namespace Routing
 		{
 			// If the path has been completed, register this and return the last position of the path.
 			var time = SessionController.Session.TimeToCompletePath * 1000;
-			if (t > time)
+			if (t >= time)
 			{
 				if (!_finished)
 				{

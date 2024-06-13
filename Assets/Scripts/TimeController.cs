@@ -40,10 +40,13 @@ namespace Sessions
 		/// </summary>
 		public void Update()
 		{
+			// Return if the time should not be adjusted yet.
 			if (!s_enabled || _trialFinished) return;
 			
+			// Adjust the time in milliseconds.
 			s_currentTime += Time.deltaTime * 1000f;
 
+			// If the time limit has passed, complete the trial.
 			if (s_currentTime > _timeLimit)
 			{
 				SessionEventHandler.Instance.CompleteTrial(timeExpired: true);

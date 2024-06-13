@@ -42,15 +42,5 @@ namespace Task
 			if (!_setupDone) return;
 			ghost.SetPosition(_path.PositionAt(t));
 		}
-
-		/// <summary>
-		/// Implementations of this method should check whether the task has been fully and correctly completed.
-		/// </summary>
-		/// <returns> True if the task has been completed. False otherwise. </returns>
-		public bool IsComplete()
-		{
-			// TODO: implement this
-			return false;
-		}
 	}
 }

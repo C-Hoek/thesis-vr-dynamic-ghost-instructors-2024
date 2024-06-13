@@ -30,8 +30,7 @@ namespace GameEntities
 		public void LateUpdate()
 		{
 			var yRotation = cameraHeadTarget.eulerAngles.y;
-			// Don't rotate beyond 90 degrees as the camera will show disturbing imagery of necks bending in a way they are not supposed to be bending.
-			// Also don't move the arms beyond this for a similar reason.
+			// Don't rotate beyond 90 degrees as the camera will show disturbing imagery of arms bending in a way they are not supposed to be bending.
 			if (yRotation is > 90 and < 270f)
 			{
 				return;

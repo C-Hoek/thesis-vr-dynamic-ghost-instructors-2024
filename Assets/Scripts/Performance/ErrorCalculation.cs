@@ -24,8 +24,6 @@ namespace Performance
 		/// <returns> A number between 0 and 1. </returns>
 		public static float CalculateError(Vector3 studentPointer, Vector3 ghostPointer)
 		{
-			// TODO: Should going faster be allowed? I kind of want the ghost to speed up to prevent the student getting ahead.
-			// Should this take into account previous positions since the student is likely _following_ the ghost???
 			var posError = Utils.Vector3Abs(ghostPointer - studentPointer);
 
 			// If the distance between the student and the teacher exceeds the maximum distance in any direction, return the maximum error.
@@ -48,7 +46,6 @@ namespace Performance
 		/// <returns> True if any of the distances exceeds the maximum allowed distance. False otherwise. </returns>
 		private static bool DistanceOrRotExceedsMaxErrors(Vector3 posError)
 		{
-			Debug.Log("Exceed max?: " + (posError.x > XMaxPosError || posError.y > YMaxPosError || posError.z > ZMaxPosError));
 			return posError.x > XMaxPosError || posError.y > YMaxPosError || posError.z > ZMaxPosError;
 		}
 

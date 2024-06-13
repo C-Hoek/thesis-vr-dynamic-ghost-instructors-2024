@@ -122,7 +122,6 @@ namespace Routing
 			distList.Add(0);
 			for (var i = 1; i < NumApproximationPoints; i++)
 			{
-				// TODO: This was divided by 100f before; make sure this is correct.
 				var dist = Vector3.Distance(PosAt((i - 1) / (float) NumApproximationPoints), PosAt(i / (float) NumApproximationPoints));
 				distList.Add(dist);
 			}
