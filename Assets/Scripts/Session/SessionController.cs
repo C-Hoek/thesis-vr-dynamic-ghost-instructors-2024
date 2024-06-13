@@ -193,7 +193,9 @@ namespace Sessions
 		/// This method handles all session controller functionality that must be done before completion.
 		/// It also logs the full trial performance array.
 		/// </summary>
-		private void CompleteSession() {
+		private void CompleteSession()
+		{
+			s_trialIndex = 0;
 			Logger.Log($"Trial Performance{Utils.LogList(_trialPerformances)}");
 		}
 
