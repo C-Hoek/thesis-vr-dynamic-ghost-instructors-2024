@@ -179,6 +179,13 @@ namespace Sessions
 			Logger.Log($"Trial Complete Within Time Limit{Logger.Delimiter}{!timeExpired}");
 			_trialPerformances[s_trialIndex].CalculateTrialStatistics(_student.BaselinePerformance, TimeController.CurrentTime, timeExpired);
 			Logger.Log(_trialPerformances[s_trialIndex].LogPerformance());
+			
+			// Set the student's baseline performance if this was the first trial.
+			if (s_trialIndex == 0)
+			{
+				_student.BaselinePerformance = _trialPerformances[s_trialIndex].TrialStats.TaskPerformance;
+			}
+			
 			LoadTrial();
 		}
 
