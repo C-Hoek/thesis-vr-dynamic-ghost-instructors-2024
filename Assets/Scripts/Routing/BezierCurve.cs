@@ -94,12 +94,12 @@ namespace Routing
 		private void OnDrawGizmos()
 		{
 			Gizmos.color = Color.yellow;
-			Gizmos.DrawWireSphere(P1, 0.05f);
-			Gizmos.DrawWireSphere(P2, 0.05f);
+			Gizmos.DrawWireSphere(P1, 0.005f);
+			Gizmos.DrawWireSphere(P2, 0.005f);
 			
 			Gizmos.color = Color.green;
-			Gizmos.DrawWireSphere(C1, 0.05f);
-			Gizmos.DrawWireSphere(C2, 0.05f);
+			Gizmos.DrawWireSphere(C1, 0.005f);
+			Gizmos.DrawWireSphere(C2, 0.005f);
 			
 			Gizmos.color = Color.cyan;
 			
