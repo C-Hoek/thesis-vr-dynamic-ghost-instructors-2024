@@ -85,7 +85,8 @@ namespace Performance
 		{
 			var sum = errors.Sum();
 			var scaler = 100 / errors.Count;
-			return sum * scaler;
+			Debug.Log($"{errors.Sum()}, {scaler}");
+			return 100 - (sum * scaler);
 		}
 
 		/// <summary>

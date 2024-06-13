@@ -12,9 +12,9 @@ namespace Performance
 		private const float ZPosW = 0.5f;
 
 		// Attribute that determines what the maximum allowed distance error is in each direction.
-		private const float XMaxPosError = 0.3f;
-		private const float YMaxPosError = 0.3f;
-		private const float ZMaxPosError = 1f;
+		private const float XMaxPosError = 0.1f;
+		private const float YMaxPosError = 0.1f;
+		private const float ZMaxPosError = 0.15f;
 
 		/// <summary>
 		/// This method calculates the error between the movements of the student and those of the Ghost.
