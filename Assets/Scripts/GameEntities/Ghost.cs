@@ -1,3 +1,4 @@
+using System;
 using Sessions;
 using Logger = Logging.Logger;
 using UnityEngine;
@@ -16,6 +17,8 @@ namespace GameEntities
 		
 		[SerializeField] private Material ghostMaterial;
 
+		private float _rotationAmount = 0f;
+
 		/// <summary>
 		/// This method sets the character's offset to take into account head-bone-to-eye differences among others.
 		/// </summary>
@@ -25,9 +28,20 @@ namespace GameEntities
 		}
 
 		// This method ensures that the ghost instructor's hand will not be rotated in a disturbing way.
+		// This method does attempt to smooth out the rotation changes as jitter occurs due to the Inverse Kinematics elbow positioning.
 		public void Update()
 		{
-			handTarget.transform.rotation = armBone.transform.rotation * Quaternion.Euler(0, 45.0f, 0);
+			var newRotation = armBone.transform.rotation * Quaternion.Euler(0, 45.0f, 0);
+
+			if (Quaternion.Angle(newRotation, handTarget.transform.rotation) > 30)
+			{
+				_rotationAmount += 0.005f;
+				handTarget.transform.rotation = Quaternion.Slerp(handTarget.transform.rotation, newRotation, _rotationAmount);
+			}
+			else
+			{
+				_rotationAmount = 0f;
+			}
 		}
 		
 		/// <summary>
@@ -41,7 +55,7 @@ namespace GameEntities
 			LogPosition();
 			LogTransparency();
 		}
-
+		
 		/// <summary>
 		/// This method shows the ghost avatar.
 		/// </summary>
