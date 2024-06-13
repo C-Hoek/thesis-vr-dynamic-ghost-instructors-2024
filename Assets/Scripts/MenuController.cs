@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Config;
 using Sessions;
@@ -7,6 +8,7 @@ using UnityEngine;
 public class MenuController : MonoBehaviour
 {
 	public TMP_Dropdown configDropdown;
+	public TMP_InputField trialIndexInputField;
 	public ScriptableConfigObject staticConfig;
 	public ScriptableConfigObject dynamicConfig;
 
@@ -30,6 +32,10 @@ public class MenuController : MonoBehaviour
 
 		if (config is null) return;
 		sessionController.Config = config;
+		
+		// Set the trial index.
+		SessionController.TrialIndex = Int32.Parse(trialIndexInputField.text);
+		
 		sessionController.Setup();
 
 		// Load the test environment.

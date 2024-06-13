@@ -60,6 +60,11 @@ namespace Sessions
 
 		// Variables used to keep track of the session state.
 		private static int s_trialIndex = -1;
+		public static int TrialIndex
+		{
+			set => s_trialIndex = value;
+		}
+
 		private static bool s_started;
 		public static bool Started
 		{
