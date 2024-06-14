@@ -24,7 +24,7 @@ namespace Sessions
 		public bool IsComplete(int trialIndex)
 		{
 			// The trial index is 0-based while the number is not, therefore we add 1 to the index.
-			return trialIndex + 1 == NumLearningTrials + NumTestTrials;
+			return trialIndex == NumLearningTrials + NumTestTrials;
 		}
 	}
 }
