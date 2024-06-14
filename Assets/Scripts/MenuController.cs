@@ -7,14 +7,23 @@ using UnityEngine;
 
 public class MenuController : MonoBehaviour
 {
-	public TMP_Dropdown configDropdown;
-	public TMP_InputField trialIndexInputField;
-	public ScriptableConfigObject staticConfig;
-	public ScriptableConfigObject dynamicConfig;
+	[SerializeField] private TMP_Dropdown configDropdown;
+	[SerializeField] private TMP_InputField trialIndexInputField;
+	[SerializeField] private ScriptableConfigObject staticConfig;
+	[SerializeField] private ScriptableConfigObject dynamicConfig;
+	[SerializeField] private TextMeshProUGUI versionNumber;
 
 	[SerializeField] private SessionController sessionController;
 
 	private readonly List<string> _dropdownOptions = new List<string> { "static", "dynamic" };
+
+	/// <summary>
+	/// This method displays the version number on the main menu.
+	/// </summary>
+	public void Awake()
+	{
+		versionNumber.text = Application.version;
+	}
 
 	/// <summary>
 	/// This method loads the selected configuration type (static or dynamic) and then loads the test environment.
