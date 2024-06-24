@@ -21,6 +21,7 @@ The data can be accessed at: https://doi.org/10.4121/abb0629c-9f42-4a0f917f-d5d6
 
 ## Licensing
 This section details the licenses that cover parts of the code base and models.
+The code itself is covered by the [Creative Commons Attribution 4.0 International](https://creativecommons.org/licenses/by/4.0/) license.
 
 ### Human and Ghost Avatars
 The human and ghost avatars were made using the [MakeHuman](http://www.makehumancommunity.org/) plugin (version `mpfb2-20240602`) for [Blender](https://www.blender.org/). 
