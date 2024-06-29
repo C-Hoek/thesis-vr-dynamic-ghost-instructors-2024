@@ -13,7 +13,7 @@ Dynamically transparent ghost instructors, in the context of this study, are ess
 metaphor-based instructors whose transparency changes depending on how well the student is learning the taught skill.
 
 ## Link to Paper
-The paper can be found at:
+The paper can be found at: https://repository.tudelft.nl/islandora/object/uuid:ca94599c-a9fe-4ec8-b429-e129d2ddc8ab?collection=education
 
 ## Link to Data
 The data can be accessed at: https://doi.org/10.4121/abb0629c-9f42-4a0f917f-d5d666554738
