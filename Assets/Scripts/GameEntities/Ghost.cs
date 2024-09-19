@@ -1,4 +1,3 @@
-using System;
 using Sessions;
 using Logger = Logging.Logger;
 using UnityEngine;

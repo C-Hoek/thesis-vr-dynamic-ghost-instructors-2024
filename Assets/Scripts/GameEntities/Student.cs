@@ -25,7 +25,7 @@ namespace GameEntities
 		public void FixedUpdate()
 		{
 			if (!SessionController.Started) return;
-			// Log the position and transparency of the ghost avatar.
+			// Log the position and transparency of the student avatar.
 			LogPosition();
 		}
 
