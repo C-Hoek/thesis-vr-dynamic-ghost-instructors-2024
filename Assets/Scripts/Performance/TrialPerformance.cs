@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System;
-using UnityEngine;
 using Util;
 using Logger = Logging.Logger;
 
@@ -33,7 +32,6 @@ namespace Performance
 
 		/// <summary>
 		/// This method calculates and compiles all recorded statistics throughout the trial.
-		/// All calculated sub-statistics are ordered as: task1, task2, combined.
 		/// </summary>
 		/// <param name="baselinePerformance"> The baseline performance of the student. </param>
 		/// <param name="completionTime"> The time it took for the student to complete the trial. </param>

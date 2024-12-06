@@ -23,6 +23,12 @@ def calculate_euclidean_distance(mean_shifted_student, mean_shifted_ghost):
 
 
 def calculate_dtw_distance(mean_shifted_student, mean_shifted_ghost):
+    """
+    Calculates the DTW distance between the two input arrays.
+    :param mean_shifted_student: (time, xs, ys, zs)
+    :param mean_shifted_ghost: (time, xs, ys, zs)
+    :return: A value representative of the difference between the two time series.
+    """
     t, xs1, ys1, zs1 = mean_shifted_student
     _, xs2, ys2, zs2 = mean_shifted_ghost
 
@@ -40,6 +46,65 @@ def calculate_dtw_distance(mean_shifted_student, mean_shifted_ghost):
     d = dtw_ndim.distance(dtw_student, dtw_ghost)
 
     return d
+
+
+def calculate_distance_matrix(mean_shifted_student, mean_shifted_ghost):
+    """
+    Returns the distance matrix constructed from pairwise distance of the input arrays.
+    :param mean_shifted_student: (time, xs, ys, zs)
+    :param mean_shifted_ghost: (time, xs, ys, zs)
+    :return: The distance matrix.
+    """
+    t, xs1, ys1, zs1 = mean_shifted_student
+    _, xs2, ys2, zs2 = mean_shifted_ghost
+
+    n = len(xs1)
+    m = len(xs2)
+
+    dist_mat = np.zeros((n, m))
+
+    for i in range(n):
+        for j in range(m):
+            s = np.array([xs1[i], ys1[i], zs1[i]])
+            g = np.array([xs2[j], ys2[j], zs2[j]])
+            dist_mat[i, j] = np.linalg.norm(s - g)
+
+    return dist_mat
+
+
+def calculate_dtw_distance_manual(mean_shifted_student, mean_shifted_ghost):
+    """
+    Calculates the DTW distance between the two input arrays.
+    :param mean_shifted_student: (time, xs, ys, zs)
+    :param mean_shifted_ghost: (time, xs, ys, zs)
+    :return: A value representative of the difference between the two time series.
+    """
+    n = len(mean_shifted_student[1])
+    m = len(mean_shifted_ghost[1])
+
+    # Obtain the distance matrix.
+    dist_mat = calculate_distance_matrix(mean_shifted_student, mean_shifted_ghost)
+    cost_mat = np.zeros((n + 1, m + 1))
+
+    # Initialise the infinity rows.
+    for i in range(n + 1):
+        if i == 0:
+            continue
+        cost_mat[i, 0] = np.inf
+
+    for j in range(m + 1):
+        if j == 0:
+            continue
+        cost_mat[0, j] = np.inf
+
+    # Run the DTW algorithm without any optimisation...
+    for i in range(1, n + 1):
+        for j in range(1, m + 1):
+            cost = [cost_mat[i - 1, j - 1], cost_mat[i - 1, j], cost_mat[i, j - 1]]
+            cost_mat[i, j] = (
+                    dist_mat[i - 1, j - 1] + cost[np.argmin(cost)])
+
+    return np.sqrt(cost_mat[n, m])
 
 
 def mean_shift_data(pointer_pos):
