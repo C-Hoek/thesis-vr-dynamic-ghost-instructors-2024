@@ -38,6 +38,14 @@ def read_file(file_name):
             if lines[1] == "Statistics":
                 statistics = read_statistics(lines)
 
+    # # Check if there were any lines read in with a larger completion time and remove them if this is the case.
+    # for type in [error, transparency, ghost_pointer_pos, student_pointer_pos]:
+    #     counter = 0
+    #     for line in type:
+    #         if line[0] >= time_completed:
+    #             counter += 1
+    #     print(counter)
+
     return error, transparency, ghost_pointer_pos, student_pointer_pos, statistics
 
 
@@ -66,6 +74,7 @@ def read_ghost_pos(line):
     :return: It returns a (time, position) tuple.
     """
     x, y, z = float(line[6][1:]), float(line[7]), float(line[8][:len(line[8]) - 1])
+    # print(x, y, z)
     return float(line[0]), Vector3(x, y, z)
 
 
@@ -76,6 +85,7 @@ def read_student_pos(line):
     :return: It returns a (time, position) tuple.
     """
     x, y, z = float(line[10][1:]), float(line[11]), float(line[12][:len(line[12]) - 1])
+    # print(x, y, z)
     return float(line[0]), Vector3(x, y, z)
 
 
@@ -87,12 +97,18 @@ def read_statistics(line):
         task_performance, learning_effect) tuple.
     """
     average_error = float(line[2][28:])
-    max_error = float(line[3][12:])
-    min_error = float(line[4][12:])
-    time_to_completion = float(line[5][20:])
-    completed = True if line[6][13:] == "True" else False
-    task_performance = float(line[7][19:])
-    learning_effect = float(line[8][18:len(line[8]) - 2])
+    max_error = float(line[3][11:])
+    min_error = float(line[4][11:])
+    time_to_completion = float(line[5][19:])
+    completed = True if line[6][-4:] == "True" else False
+    task_performance = float(line[7][18:])
+    learning_effect = float(line[8][17:len(line[8]) - 2])
+    # print(average_error)
+    # print(max_error)
+    # print(min_error)
+    # print(f'{time_to_completion}, {line[5][18:]}, {completed}, {line[6][-4:]}')
+    # print(task_performance)
+    # print(learning_effect)
 
     return (float(line[0]), average_error, max_error, min_error, time_to_completion,
             completed, task_performance, learning_effect)
